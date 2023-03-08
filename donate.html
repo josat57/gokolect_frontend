@@ -211,7 +211,7 @@
                 dataType: 'HTML',
                 success: function(link){
                     console.log(link);
-                    window.location.href = link;
+                    // window.location.href = link;
                     // $.globalEval(html);                     
                     // $(document).ready(function(){
                     //     document.write(html);
@@ -221,9 +221,9 @@
                     console.log(errorThrown);
                     console.log(jqXHR);
                     console.log(textStatus);
-                    $(document).ready(function(){
-                        document.write(jqXHR.responseText);
-                    });  
+                    // $(document).ready(function(){
+                    //     document.write(jqXHR.responseText);
+                    // });  
                     // Swal.fire({
                     //     title: "Error",
                     //     html: jqXHR.responseText,
