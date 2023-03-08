@@ -116,7 +116,7 @@
           console.log("dashboard " + jwt, "index page " + jwtp !== undefined);
           if ((jwtp == undefined || jwtp === "%5Bobject%20Object%5D") && (jwt === "%5Bobject%20Object%5D" || jwt === undefined)) {                        
               $.ajax({
-                url: '../gokolect_api/',
+                url: 'https://gokolectapp.bootqlass.com/',
                 type: 'POST',
                 dataType: 'JSON',
                 data: {
@@ -152,7 +152,7 @@
     
       function getGiftItems(jwt) {
           $.ajax({
-              url: '../gokolect_api/',
+              url: 'https://gokolectapp.bootqlass.com/',
               type: 'POST',
               dataType: 'JSON',
               data: {
@@ -220,7 +220,7 @@
               });
           } else {          
             $.ajax({
-              url: '../gokolect_api/web/index.php',
+              url: 'https://gokolectapp.bootqlass.com/',
               type: 'POST',
               dataType: 'JSON',
               data: {
@@ -266,7 +266,7 @@
           e.preventDefault();
           $.blockUI();
           $.ajax({ 
-              url: '../gokolect_api/web/index.php',
+              url: 'https://gokolectapp.bootqlass.com/',
               type: 'POST',
               dataType: 'JSON',
               data: {
