@@ -208,10 +208,11 @@
                 contentType: false,
                 cache: false,
                 processData: false,
-                dataType: 'HTML',
+                dataType: 'JSON',
                 success: function(link){
-                    console.log(link);
-                    // window.location.href = link;
+                    const linkUrl = JSON.stringify(link)
+                    console.log(linkUrl);
+                    window.location.href = linkUrl;
                     // $.globalEval(html);                     
                     // $(document).ready(function(){
                     //     document.write(html);
