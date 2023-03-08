@@ -1,0 +1,105 @@
+
+    <main class="main-container">
+        <aside class="side-bar col-6 col-md-6 col-sm-12 col-lg-6">
+            <div class="form-header">
+                <h1 class="form-title" style="color:#4c4c;!important">Add Items Category</h1>
+                <p class="text-white fw-normal ps-8 pe-8">Items you do not need again may be needed by someone, do not discard it give it out to someone special here</p>
+                <a href="index.html" class=""> <img src="assets/images/polljota_logo.png" alt="" class="brand-logo" alt="Polljotter logo" /></a>
+            </div>
+        </aside>
+        <section class="form-section col-6 col-md-6 col-sm-12 col-lg-6">
+            <div class="form-container d-flex justify-content-center align-items-center">               
+                <form class="col-sm-12 col-md-10 col-lg-10 p-4 d-flex flex-column" role="form" id="addCategoryForm">
+                                     
+                    <div class="form-group p4 mx-4 my-1">
+                        <label for="category_name">Category</label>
+                        <input type="text" name="category_name" id="category_name" class="form-control rounded" placeholder="Category" required>
+                    </div>
+                                     
+                    <div class="form-group p4 mx-4 my-1">
+                        <label for="sub_category">Sub-Category</label>
+                        <input type="text" name="sub_category" id="sub_category" class="form-control rounded" placeholder="Sub-category" required>
+                    </div>
+
+                    <div class="form-group p4 mx-4 my-1">
+                        <label for="description">Description</label>
+                        <textarea name="description" class="form-control rounded" id="description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group p4 mx-4 my-1">                        
+                        <button class="btn btn-custom-primary-new rounded my-4 mx-4 w-100" id="addCategoryBtn" type="button">Add New Category</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main> 
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        // $.blockUI();
+        window.addEventListener('DOMContentLoaded', function() {
+            $.unblockUI();
+        });
+
+        $(document).ready(function(){
+            $('#addCategoryBtn').click(function(e){
+                addCategory(e);
+            });
+        });
+
+        $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+        function addCategory(e) {
+            e.preventDefault();
+            let formData = new FormData(addCategoryForm);
+            formData.append('action', 'add_categories_users');        
+            $.ajax({
+                url: "../gokolect_api/web/index.php",
+                type: "POST",
+                data: formData,
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: 'JSON',
+                success: function(json){
+                    console.log(json);
+                    if (json.statuscode === 0) {
+                        Swal.fire({
+                            title: "Success",
+                            html: json.status,
+                            type: "success",
+                            icon: "success",
+                            confirmButtonText: "Ok"
+                        }).then(function(res){
+                            console.log(res);
+                            // window.location.href = "signup_success.html";
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            html: json.status,
+                            type: "error",
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    console.log(jqXHR);
+                    Swal.fire({
+                        title: "Error",
+                        html: jqXHR.responseText,
+                        type: "error",
+                        confirmButtonText: "Ok"
+                    });
+                }
+            });
+        }
+    </script>

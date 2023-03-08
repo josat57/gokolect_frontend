@@ -1,0 +1,217 @@
+
+    <main class="main-container">
+        <aside class="side-bar col-6 col-md-6 col-sm-12 col-lg-6">
+            <div class="form-header">
+                <h1 class="form-title" style="color:#4c4c;!important">Upload Item</h1>
+                <p class="text-white fw-normal ps-8 pe-8">Items you do not need again may be needed by someone, do not discard it give it out to someone special here</p>
+                <a href="index.html" class=""> <img src="assets/images/polljota_logo.png" alt="" class="brand-logo" alt="Polljotter logo" /></a>
+            </div>
+        </aside>
+        <section class="form-section col-6 col-md-6 col-sm-12 col-lg-6">
+            <div class="form-container d-flex justify-content-center align-items-center">  
+                <div id="form_container">             
+                    <form class="col-sm-12 col-md-10 col-lg-10 p-4 d-flex flex-column" role="form" id="addItemForm">
+                        
+                        <div class="form-group p4 mx-4 my-1">
+                            <label for="item_name">Item Name</label>
+                            <input type="text" name="item_name" id="item_name" class="form-control rounded" placeholder="Item Name" required>
+                        </div>
+
+                        <div class="form-group p4 mx-4 my-1">
+                            <label for="item_type">Item type</label>
+                            <input type="text" name="item_type" id="item_type" class="form-control rounded" placeholder="Item type" required>
+                        </div>
+
+                        <div class="form-group p4 mx-4 my-1">
+                            <label for="category">Item Category</label>
+                            <select type="text" name="category" id="category" class="form-control rounded" placeholder="Item Category" required>
+                                <option value="">Select Category</option>
+                                <option value="1">Cat 1</option>
+                                <option value="2">Cat 2</option>
+                                <option value="3">Cat 3</option>
+                                <option value="4">Cat 4</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group p4 mx-4 my-1">
+                            <label for="item_desc">Item Description</label>
+                            <input type="text" name="item_desc" id="item_desc" class="form-control rounded" placeholder="Descriptione" required>
+                        </div>
+
+                        <div class="form-group p4 mx-4 my-1">
+                            <label for="comment">Comment</label>
+                            <textarea name="comment" class="form-control rounded" id="comment" rows="3"></textarea>
+                        </div>
+                        <div class="form-group p4 mx-4 my-1">
+                            <label for="item_image">Add Item Image</label>
+                            <input type="file" accept="image/*" name="item_image" id="item_image" class="form-control rounded" placeholder="Item Image" required>
+                        </div>
+                        <button class="btn btn-custom-primary-new rounded my-4 mx-4" id="uploadItemsBtn" type="button">Upload Item</button>
+                    </form>
+                </div>
+                <div class="col-sm-12 col-md-10 col-lg10 my-items" id="myItems">
+                    <div class="card p-0">
+                        <div class="card-header p-0">
+                            <h3 class="card-title p-3" id="item_name_display">Item Name</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <img src="assets/images/bg_001.jpg" alt="" srcset="" alt="uploaded item" id="item_image_display" class="img-responsive item-image1">
+                        </div>
+                        <div class="card-footer p-0">
+                            <div class="row p-3">
+                                <h4 class="sub-title">Description</h4>
+                                <p id="item_desc_display">Lorem ipsum dolor sit amet consectetur adipisicing elit. At, vitae.</p>
+                            </div>
+                            <div class="row p-3 mt-2 bg-white">
+                                <h4 class="sub-title">Comment</h4>
+                                <p id="comment_display">Lorem ipsum dolor sit amet consectetur adipisicing elit. At, vitae.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <img src="assets/images/bg_patern.png" alt="selected item image" class="img-responsive rounded" id="image_preview" />
+    </main> 
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        // $.blockUI();
+        window.addEventListener('DOMContentLoaded', function() {
+            $.unblockUI();
+        });
+
+        $(document).ready(function(){
+            $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+            $('#uploadItemsBtn').click(function(e){
+                addNewItem(e);
+            });
+
+            $('#item_image').change(function(e){
+                const imagePreview = document.querySelector('#image_preview');
+                const itemImage = document.querySelector('#item_image');
+                const [file] = itemImage.files;
+                
+                if (file) {
+                    imagePreview.onload = function() {
+                        URL.revokeObjectURL(imagePreview.src) // free memory
+                    }
+                    imagePreview.src = URL.createObjectURL(file);                    
+                    imagePreview.style.display = 'flex';
+                    imagePreview.classList.add("fadeIn");
+                    imagePreview.classList.remove("fadeOut");
+
+                    setInterval(function(){                        
+                        imagePreview.classList.remove("fadeIn");   
+                        imagePreview.classList.add("fadeOut");                     
+                        imagePreview.style.display = "none";
+                    }, 60000);
+                } else {
+                    imagePreview.attributes.hidden = true;
+                }
+
+            });            
+            
+            getCategories();
+        });
+
+
+        function addNewItem(e) {
+            e.preventDefault();
+            let formData = new FormData(addItemForm);
+            formData.append('action', 'upload_item_users');        
+            $.ajax({
+                url: "../gokolect_api/web/index.php",
+                type: "POST",
+                data: formData,
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: 'JSON',
+                success: function(json){
+                    console.log(json);
+                    if (json.statuscode === 0) {
+                        Swal.fire({
+                            title: "Success",
+                            html: json.status,
+                            icon: "success",
+                            confirmButtonText: "Ok"
+                        }).then(function(){
+                            const Form = document.querySelector("#form_container");
+                            const items = document.querySelector("#myItems");
+                            Form.style.display = "none";
+
+                            $("#item_name_display").text(json.data.item_name);
+                            $("#item_desc_display").text(json.data.item_desc);
+                            $("#comment_display").text(json.data.comment);
+                            console.log(Form, "here", items)
+                            const img = new Image();
+                            img.src = "data:image/jpg;base64," + json.data.item_image;
+                            $("#item_image_display").attr("src", img.src);
+                            items.style.display = "flex";
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            html: json.status,
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    console.log(jqXHR);
+                    Swal.fire({
+                        title: "Error",
+                        html: jqXHR.responseText,
+                        icon: "error",
+                        confirmButtonText: "Ok"
+                    });
+                }
+            });
+        }    
+             
+        function getCategories() {
+            $.ajax({
+                url: '../gokolect_api/web/index.php',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    'action': 'get_categories_items',
+                    'token': $.cookie('_jwt')
+                },
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                success: function(json) {				
+                    if (json.statuscode === 0) {
+                        console.log(json);
+                        const data = json.data
+                        var sel = $("#category");
+                        sel.empty();
+                        for (var i=0; i<data.length; i++) {
+                            sel.append('<option value="' + data[i].id + '">' + data[i].category_name + '</option>');
+                        }
+                    } else {              
+                        console.log(json.status);
+                    }
+                },
+                error: function(xhr, status, error) {			
+                    // window.location.href = '../units/signin.html';
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+    </script>

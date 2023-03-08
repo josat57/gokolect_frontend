@@ -1,0 +1,287 @@
+
+    <main class="main-container">
+        <section class="col-12">
+            <div class="container" id="cards-container">
+              
+                <div class="card col-4 g-2 mt-2 ms-3 bg-warning">
+                    <div class="card-body">
+                        <div class="card-content">
+                            <h2 class="item_name">Laptop</h2>
+                            <span class="posted_date">20/07/22</span>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center align-items-center">
+                        <h1 class="badge bg-light rounded-pill p-4 text-dark cursor-pointer" id="display_list">1000</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="request-list card shadow-sm">
+            <div class="card-body">
+                <ul class="items_list" id="itemList">
+                    <li class="list-item rounded">
+                        <img src="assets/images/avatars/avatar-3.jpg" alt="requester photo" class="img rounded-circle shadow-sm requester_img">
+                        <p id="requester_name" class="text-truncate" title="Request sent by: ">Joseph Samuel</p>
+                        <!-- <div class="d-flex flex-column justify-content-center align-items-center me-4"> -->
+                            <p id="location" class="text-truncate ml-5" title="location | address: ">85 gogo compound edereme-biri okrika island</p>
+                            <p id="request_time" title="request time: " class="time">12:16 AM</p>
+                        <!-- </div> -->
+                        <button class="btn btn-primary btn-sm rounded-pill">Give</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main> 
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        // $.blockUI();
+        window.addEventListener('DOMContentLoaded', function() {
+            $.unblockUI();
+        });
+
+        $(document).ready(function(){
+            $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+            
+            getGiftItems();
+        });
+
+        window.addEventListener("click", function(){
+            $(".request-list").css('display', 'none');
+        });
+        
+        function getGiftItems() {
+            $.ajax({
+                url: '../gokolect_api/web/index.php',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    'action': 'get_collectible_by_id_items',
+                    // 'token': $.cookie('_jwt')
+                },
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                success: function(json) {			
+                    if (json.statuscode === 0) {
+                        console.log(json);
+                        const data = json.data
+                        displayCards(data);                      
+                    } else {              
+                        console.log(json.status);
+                    }
+                },
+                error: function(xhr, status, error) {			
+                    // window.location.href = '../units/signin.html';
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+        function displayCards(data) {
+            var cards = $("#cards-container");
+            cards.empty();
+            var card = null;
+            for (var i=0; i<data.length; i++) {
+                card = `
+                <div class="card col-4 g-2 mt-2 ms-3 bg-warning" id="${data[i].item_code}">
+                    <div class="card-body">
+                        <div class="card-content">
+                            <h2 class="item_name">${data[i].item_name}</h2>
+                            <span class="posted_date">${data[i].posted_date}</span>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center align-items-center">
+                        <h1 class="badge bg-light rounded-pill p-4 text-dark cursor-pointer" id="${data[i].item_id}">${data[i].request_count}</h1>
+                    </div>
+                </div>
+                `;
+                // <h2>${data[i].item_name}</h2>
+                cards.append(card);
+                var img = new Image();
+                img.src = "data:image/jpg;base64,"+data[i].item_image;
+                $("#"+ data[i].item_code).css("background-image", 'url(' + img.src + ')');                
+            }
+            let theCards = document.querySelector("#cards-container");
+            // console.log(theCards.children);
+            $.each(theCards.children, function(idx, val) {
+                let element = val.lastChild.previousElementSibling.firstElementChild;
+                element.addEventListener("click", function(e){
+                    console.log(e.target.textContent);
+                    if (e.target.textContent === "N/A") {
+                        Swal.fire({
+                            title: "Error",
+                            text: "There are no requests made for this item yet!",
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        });
+                    } else {
+                        let item_code = e.target.parentNode.parentNode.id;
+                        displayRequestList(e, item_code);                    
+                    }
+                });
+                console.log(val.lastChild, element);
+            });
+        }
+
+        function collectThisItem(item_code) {
+            console.log(item_code);
+            $.ajax({
+                url: '../gokolect_api/web/index.php',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    'action': 'collect_this_items',
+                    'item_code': item_code,
+                    // 'token': $.cookie('_jwt')
+                },
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                success: function(json) {	
+                    // $.unblockUI();			
+                    if (json.statuscode === 0) {
+                        console.log(json);
+                        Swal.fire({
+                            title: "Success",
+                            html: json.status,
+                            icon: "success",
+                            confirmButtonText: "Ok"
+                        }).then(function(){
+                            window.location.href = "index.html";
+                        });                     
+                    } else {              
+                        console.log(json.status);
+                        Swal.fire({
+                            title: "Error",
+                            html: json.status,
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        }).then(function(){
+                            window.location.href = "signup_success.html";
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {			
+                    // window.location.href = '../units/signin.html';
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+
+        function displayRequestList(e, item_code) {
+            e.preventDefault();
+            $.ajax({
+                url: '../gokolect_api/web/index.php',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    'action': 'get_request_persons_items',
+                    'item_code': item_code
+                },
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                success: function(json) {	
+                    console.log(json);
+                    $(".request-list").css('display', 'flex');
+                    $(".request-list").css('opacity', '1');  
+                    if (json.statuscode === 0) {
+                        let listItem = $("#itemList");
+                        listItem.empty();
+                        let item = null;
+                        let data = json.data;
+                        for (let i = 0; i < data.length; i++) {
+                            let fullName = data[i].last_name + " " + data[i].first_name;
+                            let address = data[i].street + " " + data[i].city + " " + data[i].state + " " + data[i].country;
+                            item = `
+                            <li class="list-item rounded">
+                                <img src="assets/images/avatars/avatar-3.jpg" alt="requester photo" class="img rounded-circle shadow-sm requester_img" id="avatar${i}">
+                                <p class="text-truncate" title="Request sent by: ${fullName}">${fullName}</p>
+                                <!-- <div class="d-flex flex-column justify-content-center align-items-center me-4"> -->
+                                    <p class="text-truncate ml-5" title="location | address: ${address} ">${address}</p>
+                                    <p title="request time: " class="time">${data[i].request_date}</p>
+                                <!-- </div> -->
+                                <button class="btn btn-primary btn-sm rounded-pill" onclick="giveItemToSelected('${item_code}', '${data[i].id}')">Give</button>
+                            </li>
+                            `;
+                            listItem.append(item);
+                            let profilePhoto = document.querySelector('#avatar'+i);
+                            const img = new Image();
+                            if (data[i].profile_photo !== "N/A") {
+                                img.src = "data:image/jpg;base64, "+data[i].profile_photo;
+                                profilePhoto.src = img.src;
+                            }
+                        }                                                               
+                    } else {              
+                        console.log(json.status);
+                        Swal.fire({
+                            title: "Error",
+                            html: json.status,
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        }).then(function(){
+                            // window.location.href = "signup_success.html";
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {			
+                    // window.location.reload();
+                    console.log(xhr.responseText);
+                }
+            });
+            
+        }
+
+        function giveItemToSelected(item_code, selected) {
+            console.log(item_code, selected);
+            $.ajax({
+                url: '../gokolect_api/web/index.php',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    'action': 'give_out_items',
+                    'item_code': item_code,
+                    'receiver_id': selected
+                    // 'token': $.cookie('_jwt')
+                },
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                success: function(json) {	
+                    // $.unblockUI();			
+                    if (json.statuscode === 0) {
+                        console.log(json);
+                        Swal.fire({
+                            title: "Success",
+                            html: json.status,
+                            icon: "success",
+                            confirmButtonText: "Ok"
+                        }).then(function(){
+                            // window.location.href = "index.html";
+                        });                     
+                    } else {              
+                        console.log(json.status);
+                        Swal.fire({
+                            title: "Error",
+                            html: json.status,
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        }).then(function(){
+                            // window.location.href = "signup_success.html";
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {			
+                    // window.location.href = '../units/signin.html';
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+    </script>

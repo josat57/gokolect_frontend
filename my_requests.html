@@ -1,0 +1,114 @@
+<div class="container" id="card-container">
+
+    <div class="card">
+      <div class="face face1">
+        <div class="content">
+          <span class="stars"></span>
+          <h2 class="java">Java</h2>
+          <p class="java">Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.</p>
+        </div>
+      </div>
+      <div class="face face2">
+        <h2><button class="btn btn-primary rounded-pill">Collect Item</button></h2>
+      </div>
+    </div>
+  
+    <div class="card">
+      <div class="face face1">
+        <div class="content">
+          <span class="stars"></span>
+          <h2 class="python">Python</h2>
+          <p class="python">Python is an interpreted, high-level and general-purpose programming language.</p>
+        </div>
+      </div>
+      <div class="face face2">
+        <h2><button class="btn btn-primary rounded-pill">Collect Item</button></h2>
+      </div>
+    </div>
+  
+    <div class="card">
+      <div class="face face1">
+        <div class="content">
+          <span class="stars"></span>
+          <h2 class="cSharp">C#</h2>
+          <p class="cSharp">C# is a general-purpose, multi-paradigm programming language encompassing static typing, strong typing, lexically scoped and component-oriented programming disciplines.</p>
+        </div>
+      </div>
+      <div class="face face2">
+        <h2><button class="btn btn-primary rounded-pill">Collect Item</button></h2>
+      </div>
+    </div>
+</div>
+
+<script>
+
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
+    $(document).ready(function(){
+        const storeJWT = {}
+        storeJWT.setJWT = function (data) {
+            this.JWT = data
+        }
+        getApiToken(storeJWT);
+    });
+
+    function getGiftItems() {
+        $.ajax({
+            url: '../gokolect_api/web/index.php',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                'action': 'get_collectible_items',                  
+            },
+            headers: {
+                Authorization: `Bearer ${$.cookie('_jwt')}`,
+            },
+            success: function(json) {			
+                if (json.statuscode === 0) {
+                    console.log(json);
+                    const data = json.data
+                    displayCards(data);                      
+                } else {              
+                    console.log(json.status);
+                }
+            },
+            error: function(xhr, status, error) {			
+                // window.location.href = '../units/signin.html';
+                console.log(xhr.responseText);
+            }
+        });
+    }
+    
+    function displayCards(data) {
+        var cards = $("#card-container");
+        cards.empty();
+        var card = null;
+        for (var i=0; i<data.length; i++) {
+            card = `
+            <div class="card">
+                <div class="face face1">
+                <div class="content">
+                    <span class="stars"></span>
+                    <h2 class="java">${data[i].item_name}</h2>
+                    <p class="java">${data[i].item_desc}</p>
+                </div>
+                </div>
+                <div class="face face2" id="${data[i].item_code}">              
+                <h2><button class="btn btn-primary btn-sm rounded-pill" onclick="collectThisItem('${data[i].item_code}');">Collect this Item</button></h2>
+                </div>
+            </div>
+            `;
+            // <h2>${data[i].item_name}</h2>
+            cards.append(card);
+            var img = new Image();
+            img.src = "data:image/jpg;base64,"+data[i].item_image;
+            // document.querySelector('#profile_photo').src = img.src;
+            $("#"+ data[i].item_code).css("background-image", 'url(' + img.src + ')');
+        }
+    }
+
+</script>

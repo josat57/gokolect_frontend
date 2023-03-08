@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="assets/css/util.css">  
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/cards.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/signup.css">
+    <title>Gokolect | Focused on social kindness</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a href="index.html" class="navbar-brand">
+          <img src="assets/images/Gokolectlogo 1.png" alt="Gokolect Logo" class="brand-logo" style="transform:scale(.5)" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
+          <nav class="navbar-nav" aria-label="Toggle navigation" style="flex: 40%;">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="signin.html">Give</a>
+            <a class="nav-link" href="donate.html">Donate</a>
+            <a class="btn btn-primary rounded-pill" href="signin.html" id="btnSignIn">Sign In</a>
+          </nav>
+          <div class="account-nav m-0 p-0 justify-content-end" style="display: none; flex: 60%;" id="dashboard">
+            <ul class="d-flex justify-content-end m-0" style="list-style-position:relative; list-style-type: none;">
+              <li><a class="nav-link" href="dashboard.html">My Account</a></li>
+              <li><a href="#" class="nav-link position-relative">My Cart<span class="rounded-pill bg-info p-2 badge position-absolute ms-1">10</span></a></li>
+              <li class="nav-link ms-4" style="cursor:pointer;" id="logoutBtn">Sign Out</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container" id="card-container">
+
+        <div class="card">
+          <div class="face face1">
+            <div class="content">
+              <span class="stars"></span>
+              <h2 class="java">Java</h2>
+              <p class="java">Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.</p>
+            </div>
+          </div>
+          <div class="face face2">
+            <h2><button class="btn btn-primary rounded-pill">Collect Item</button></h2>
+          </div>
+        </div>
+      
+        <div class="card">
+          <div class="face face1">
+            <div class="content">
+              <span class="stars"></span>
+              <h2 class="python">Python</h2>
+              <p class="python">Python is an interpreted, high-level and general-purpose programming language.</p>
+            </div>
+          </div>
+          <div class="face face2">
+            <h2><button class="btn btn-primary rounded-pill">Collect Item</button></h2>
+          </div>
+        </div>
+      
+        <div class="card">
+          <div class="face face1">
+            <div class="content">
+              <span class="stars"></span>
+              <h2 class="cSharp">C#</h2>
+              <p class="cSharp">C# is a general-purpose, multi-paradigm programming language encompassing static typing, strong typing, lexically scoped and component-oriented programming disciplines.</p>
+            </div>
+          </div>
+          <div class="face face2">
+            <h2><button class="btn btn-primary rounded-pill">Collect Item</button></h2>
+          </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jQuery3.6.0.js"></script>
+    <script src="assets/js/jquery_block_ui.js"></script>
+    <script src="assets/js/sweetalert2.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.cookie.js"></script>
+
+    <script>
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      
+      $(document).ready(function(){
+        const storeJWT = {}
+        storeJWT.setJWT = function (data) {
+          this.JWT = data
+        }
+
+        $("#logoutBtn").click(function (e) {
+          signOutUser(e);
+        });
+
+        getApiToken(storeJWT);
+      });
+      
+      $(document).ajaxStart($.blockUI()).ajaxStop($.unblockUI());
+      
+      function getApiToken(storeJWT) {
+          const jwtp = $.cookie("_jwtp");
+          const jwt = $.cookie("_jwt");
+          console.log("dashboard " + jwt, "index page " + jwtp !== undefined);
+          if ((jwtp == undefined || jwtp === "%5Bobject%20Object%5D") && (jwt === "%5Bobject%20Object%5D" || jwt === undefined)) {                        
+              $.ajax({
+                url: '../gokolect_api/',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                  'action': 'get_token_items'
+                },
+                success: function(json) {	                		
+                    if (json.statuscode === 0) {
+                        storeJWT.setJWT(json.data);
+                        $.cookie('_jwtp', json.data, { expires: 1});  
+                        $('#dashboard').css('display', 'none');
+                        $("#btnSignIn").css('display', "flex");
+                        getGiftItems(jwtp);              
+                    } else {              
+                        console.log(json.status);
+                        // window.location.href = '404.html';
+                    }
+                },
+                error: function(xhr, status, error) {			
+                    // window.location.href = '404.html';
+                    console.log(xhr.responseText);
+                }
+            });
+          } else if ((jwtp !== undefined || jwtp !== "%5Bobject%20Object%5D") && (jwt === undefined || jwt === "%5Bobject%20Object%5D")) {
+            console.log("Calling from jwtp block");
+            getGiftItems(jwtp);
+          } else {
+            $('#dashboard').css('display', 'flex');
+            $("#btnSignIn").css('display', "none");
+            console.log("calling from jwt block ");
+            getGiftItems(jwt);
+          }
+      }
+    
+      function getGiftItems(jwt) {
+          $.ajax({
+              url: '../gokolect_api/',
+              type: 'POST',
+              dataType: 'JSON',
+              data: {
+                'action': 'get_collectible_items',  
+                'token': jwt                
+              },
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+              success: function(json) {			
+                  if (json.statuscode === 0) {
+                      console.log(json);
+                      const data = json.data
+                      displayCards(data);                      
+                  } else {              
+                      console.log(json.status);
+                  }
+              },
+              error: function(xhr, status, error) {			
+                  // window.location.href = '../units/signin.html';
+                  console.log(xhr.responseText);
+              }
+          });
+      }
+
+      function displayCards(data) {
+        var cards = $("#card-container");
+        cards.empty();
+        var card = null;
+        for (var i=0; i<data.length; i++) {
+          card = `
+          <div class="card">
+            <div class="face face1">
+              <div class="content">
+                <span class="stars"></span>
+                <h2 class="java">${data[i].item_name}</h2>
+                <p class="java">${data[i].item_desc}</p>
+              </div>
+            </div>
+            <div class="face face2" id="${data[i].item_code}">              
+              <h2><button class="btn btn-primary btn-sm rounded-pill" onclick="collectThisItem('${data[i].item_code}');">Collect this Item</button></h2>
+            </div>
+          </div>
+          `;
+          // <h2>${data[i].item_name}</h2>
+          cards.append(card);
+          var img = new Image();
+          img.src = "data:image/jpg;base64,"+data[i].item_image;
+          // document.querySelector('#profile_photo').src = img.src;
+          $("#"+ data[i].item_code).css("background-image", 'url(' + img.src + ')');
+        }
+      }
+
+      function collectThisItem(item_code) {
+          const jwt = $.cookie("_jwt");
+          console.log(jwt);
+          if (jwt === "%5Bobject%20Object%5D" || jwt === undefined || jwt === null) {
+              Swal.fire({
+                title: "Authentication",
+                text: "You must be logged in to collect this item!",
+                icon: "warning",
+                confirmButtonText: "Ok"
+              }).then(function (data) {
+                 window.location.href = "signin.html";
+              });
+          } else {          
+            $.ajax({
+              url: '../gokolect_api/web/index.php',
+              type: 'POST',
+              dataType: 'JSON',
+              data: {
+                  'action': 'collect_this_items',
+                  'item_code': item_code,
+                  // 'token': $.cookie('_jwt')
+              },
+              headers: {
+                Authorization: `Bearer ${$.cookie('_jwt')}`,
+              },
+              success: function(json) {	
+                // $.unblockUI();			
+                  if (json.statuscode === 0) {
+                      console.log(json);
+                      Swal.fire({
+                          title: "Success",
+                          html: json.status,
+                          icon: "success",
+                          confirmButtonText: "Ok"
+                      }).then(function(){
+                          window.location.href = "index.html";
+                      });                     
+                  } else {                                    
+                      Swal.fire({
+                          title: "Error",
+                          html: json.status,
+                          icon: "error",
+                          confirmButtonText: "Ok"
+                      }).then(function(){
+                          // window.location.href = "signup_success.html";
+                      });
+                  }
+              },
+              error: function(xhr, status, error) {			
+                  // window.location.href = '../units/signin.html';
+                  console.log(xhr.responseText);
+              }
+          });            
+        }
+      }
+
+      function signOutUser(e) {
+          e.preventDefault();
+          $.blockUI();
+          $.ajax({ 
+              url: '../gokolect_api/web/index.php',
+              type: 'POST',
+              dataType: 'JSON',
+              data: {
+                  'action': 'sign_out_auth',
+                  'token': $.cookie('_jwt')
+              },
+              headers: {
+                  Authorization: `Bearer ${$.cookie('_jwt')}`,
+              },
+              success: function(json) {
+                  $.unblockUI();
+                  if (json.statuscode == 0) {
+                      $.removeCookie('_jwt', null, {path: "dashboard.html" }); 
+                      window.localStorage.clear();
+                      $('#dashboard').css('display', 'none');
+                      $("#btnSignIn").css('display', "flex");
+                      window.location.reload;
+                  } else {
+                      Swal.fire({
+                          title: "error",
+                          html: json.status,
+                          type: "error",
+                          icon: "error",
+                          confirmButtonText: "Ok"
+                      }).then(function() {
+                          $.removeCookie('_jwt', null, {path: "dashboard.html" });  
+                          document.cookie.remove('_jwt');                      
+                          window.localStorage.clear();
+                          window.location.reload;
+                      });
+                  }
+              },
+              error: function(xhr, status, error) {
+                  console.log(xhr.responseText);
+                  Swal.fire({
+                      title: "error",
+                      html: xhr.responseText,
+                      type: "error",
+                      icon: "error",
+                      confirmButtonText: "Ok"
+                  }).then(function() {
+                      $.removeCookie('_jwt', {path: "dashboard.html" });
+                      window.location.href = 'signin.html';
+                  });
+              }
+          });
+      }
+    </script>
+</body>
+</html>

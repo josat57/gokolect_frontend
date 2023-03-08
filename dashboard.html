@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="shortcut icon" href="../assets/images/polljota_logo_s.png" type="image/png"> -->
+    <!-- Start loading StyleSheets -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">  
+    <link rel="stylesheet" href="assets/css/style.bundle.css">
+    <link rel="stylesheet" href="assets/css/util.css">  
+    <link rel="stylesheet" href="assets/css/newstyle.css">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500;900&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="entry/assets/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="assets/css/signup.css">
+    <title>Gokolect | User Dashboard</title>
+</head>
+<body>
+    <main class="dashboard-container d-flex justify-content-between position-relative" style="height: 100vh;">
+        <aside class="side-bar dashboard-side col-2 col-md-2 col-sm-11">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-transparent" style="width: 100%; height: 100%;">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                  <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                  <span class="fs-4">Gokolect</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">                  
+                  <li>
+                    <a href="#" onclick='reload()' class="nav-link text-white">
+                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                      Dashboard
+                    </a>
+                  </li>
+                  <li>
+                    <a href="index.html" class="nav-link text-white">
+                      Collectibles
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white" onclick="showAjax('', 'my_requests.html', 'page-container');">
+                        My Request
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white" onclick="showAjax('', 'categories.html', 'page-container');">
+                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                      Add Category
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white" onclick="showAjax('', 'upload_items.html', 'page-container');">
+                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                      Add Items
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white" onclick="showAjax('', 'items_requests.html', 'page-container');">
+                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                      Item Requests
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white" onclick="showAjax('', 'donate.html', 'page-container');">
+                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                      Donate
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white" onclick="showAjax('', 'update_profile.html', 'page-container');">
+                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                      My Profile
+                    </a>
+                  </li>
+                </ul>
+                <hr>
+                <div class="dropdown">
+                  <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2" id="profileImg">
+                    <span id="profileName"><strong>mdo</strong></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                  </ul>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-custom-primary-new w-100" id="sign-out-btn">                      
+                      Sign Out
+                    </button>
+                </div>
+              </div>
+        </aside>
+        <div class="bg-danger col-md-10 col-lg-10 col-sm-12 col-10 dashboard-content">            
+            <div class="bg-info p-3" style="border-bottom: 1px solid #c4c4c4;">header</div>            
+            <div class="bg-white" style="height:100%;" id="page-container">
+                               
+            </div> 
+        </div>
+    </main> 
+    
+    <script src="assets/js/jquery3.6.0.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery_block_ui.js"></script>
+    <script src="assets/js/sweetalert2.min.js"></script>
+    <script src="assets/js/jquery.cookie.js"></script>
+    <script src="assets/js/jQueryFiles.js"></script>
+    <script src="assets/js/scripts.bundle.js"></script>	
+    <script>
+       "use strict";
+
+       $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+       
+        window.addEventListener('DOMContentLoaded', function() {
+            // $.unblockUI();             
+        });
+        
+        $(document).ready(function() {
+            $.blockUI();
+            $("#dashboard-link").click(function(e) {
+                window.location.reload(true);
+            });
+                    
+            $('#sign-out-btn').click(function(e) {
+                signOutUser(e);
+            });
+                    
+            $(document).ajaxStart($.blockUI()).ajaxStop($.unblockUI());
+            
+            getUserProfile();
+        });
+
+        function signOutUser(e) {
+            e.preventDefault();
+            $.blockUI();
+            $.ajax({
+                url: '../gokolect_api/web/index.php',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    'action': 'sign_out_auth',
+                    'token': $.cookie('_jwt')
+                },
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                success: function(json) {
+                    $.unblockUI();
+                    if (json.statuscode == 0) {
+                        $.removeCookie('_jwt', { path: 'dashboard.html' });                     
+                        $.removeCookie('_jwtp', { path: 'index.html' });   
+                        window.localStorage.clear();
+                        window.location.href = 'signin.html';
+                    } else {
+                        Swal.fire({
+                            title: "error",
+                            html: json.status,
+                            type: "error",
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        }).then(function() {
+                            $.removeCookie('_jwt', { path: 'dashboard.html' });                     
+                            $.removeCookie('_jwtp', { path: 'index.html' });                     
+                            window.localStorage.clear();
+                            window.location.href = 'signin.html';
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    Swal.fire({
+                        title: "error",
+                        html: xhr.responseText,
+                        type: "error",
+                        icon: "error",
+                        confirmButtonText: "Ok"
+                    }).then(function() {
+                        $.removeCookie('_jwt', {path: "dashboard.html" });
+                        window.location.href = 'signin.html';
+                    });
+                }
+            });
+        }
+            
+        function getUserProfile() {
+            $.ajax({
+                url: '../gokolect_api/web/index.php',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    'action': 'get_current_users',
+                },
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                success: function(json) {
+                    $.unblockUI();				
+                    if (json.statuscode === 0) {
+                        console.log(json);
+                        const full_name = json.data.first_name + " " + json.data.last_name;
+                        window.localStorage.setItem('user_id', json.data.id);
+                        // $(".user_full_name").text(json.data.first_name);
+                        // $("#user_email").text(json.data.email);
+                        $("#profileName").html(full_name);
+                        // $("#user_full_name").addClass("text-truncated");
+                        $("#user_full_name").attr("title", full_name);
+                        // if (json.data.role == 'admin') {
+                            // $("#user_role").text("Election Controller");
+                        // } else {
+                            // $("#user_role").text(json.data.role);
+                        // }
+                        const img = new Image();
+                        img.src = "data:image/jpg;base64," + json.data.profile_photo;
+                        $("#profileImg").attr("src", img.src);
+                    } else {              
+                        $.removeCookie('_jwt', {})							
+                        // window.location.href = 'signin.html';
+                    }
+                },
+                error: function(xhr, status, error) {			
+                    // window.location.href = 'signin.html';
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+        function giveOutItems(e) {
+            e.preventDefault();
+            $.blockUI();
+            let formData = new FormData(signupForm);
+            formData.append('action', 'create_platform_admin');      
+            $.ajax({
+                url: "../gokolect_api/",
+                type: "POST",
+                data: formData,
+                headers: {
+                    Authorization: `Bearer ${$.cookie('_jwt')}`,
+                },
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: 'JSON',
+                success: function(json){
+                    $.unblockUI();
+                    console.log(json);
+                    if (json.statuscode === 0) {
+                        Swal.fire({
+                            title: "Success",
+                            html: json.status,
+                            icon: "success",
+                            confirmButtonText: "Ok"
+                        }).then(function(){
+                            showAjax('', 'desk/apps/subscriptions/add.html', 'kt_content_container');
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            html: json.status,
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    console.log(jqXHR);
+                    Swal.fire({
+                        title: "Error",
+                        html: jqXHR.responseText,
+                        icon: "error",
+                        confirmButtonText: "Ok"
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

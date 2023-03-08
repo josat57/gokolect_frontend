@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- favicon -->
+  <link rel="shortcut icon" href="assets/images/polljota_logo_s.png" type="image/png">
+
+  <!--- Boostrap Link--->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">  
+  <link rel="stylesheet" href="assets/css/sweetalert2.min.css">  
+  <link rel="stylesheet" href="assets/css/util.css">  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+ 
+
+  <!-- Font Awesome icon core CSS -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+  <title>Gokolect | Email Verification </title>
+</head>
+
+<body>
+
+  <!--- Sign  --->
+  <div class="d-flex vh-100 justify-content-center align-items-center">
+    
+        <div id="response" class=" h-80 col-sm-12  bg-white justify-content-center align-items-center flex-column col-md-8 col-lg-8 d-flex">
+          <h1 class="mb-2 text-success" >Success!</h1>
+          <h4 class="mb-2 text-muted">Thank you for subscribing on Gokolect!</h4>
+          <p class="alert alert-success rounded p-4 text-secondary">
+              You have successfully subscribed to Gokolect, a verification message has been sent to your email address, please verify your email to continue on <a href="index.html" class="text-decoration-none">Gokolect</a>
+          </p>
+          <a class="btn btn-primary  mt-2" href="index.html">Home <i class="fa fa-home"></i></a>
+        </div>
+    
+  </div>
+
+  <script src="assets/js/jQuery3.6.0.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>  
+  
+    <script>
+        $(document).ready(function() {
+            verifyEmail();
+        });
+    </script>
+</body>
+
+</html>
