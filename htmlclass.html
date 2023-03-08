@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', 'Segoe UI', 'Montserrat', Arial, sans-serif;
+        }
+
+        form {
+            margin: 25px auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            width: 450px;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .input-group {
+            padding: 3px;
+        }
+
+        input {
+            margin-bottom: 5px;
+            padding: 8px 15px;
+            width: 90%;
+            height: 45px;
+            outline: none;
+            box-sizing: border-box;
+            border-radius:10px;
+            border: solid .5px #c0c0c0;
+        }
+
+        .button-group > button {
+            padding:10px;
+            background: #2ECC71;
+            width: 200px;
+            outline: none;
+            border: none;
+            box-sizing: border-box;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            transition: background 300ms ease-in-out;
+        }
+
+        .button-group > button:hover {
+            background: #4c4c
+        }
+
+        .button-group {
+            margin-top: 25px;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-header {
+            margin-bottom: 10px;
+            padding: 4.8px;
+        }
+
+        .form-title {
+            color: #2ECC71;
+        }
+
+        .form-sub-title {
+            color: #cccccc;
+        }
+    </style>
+    <title>My Html Class</title>
+</head>
+<body>
+    <h1>This is HTML Class One</h1>
+    <hr />
+    <h3>I am learning HTML.</h3>
+    <p>
+        This is a beginner class for web development, <br /> and learning html is the very basic to front-end web development.
+    </p>
+    <form action = "#", id = "signupForm">
+        <div class="form-header">
+            <h1 class="form-title"> Gokolect</h1>
+            <h3 class="form-sub-title">API Service Test</h3>
+        </div>
+        
+        <input type="text" name="first_name" id="first_name" placeholder="First Name" />        
+        
+        <input type="text" name="last_name" id="last_name" placeholder="Last Name" />        
+        
+        <input type="tel" name="mobile" id="mobile" placeholder="Mobile" />        
+        
+        <input type="email" name="email" id="email" placeholder="Email" />        
+        
+        <input type="password" name="password" id="password" placeholder="Password" />        
+        
+        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" />        
+        <div class="button-group">
+            <button type="button" id="submitBtn">Submit</button>
+        </div>
+    </form>
+
+    <img src="https://prod-discovery.edx-cdn.org/media/course/image/f42bce09-2533-48fb-a9c4-8053aedf941b-798c36769d88.small.png" alt="Test Image" width="250" height="300" />
+    <a href="https://www.google.com" target=_blank" title="Google">Go to google</a>
+    <a href="https://www.fb.com" target="_blank" title="facebook">Go to facebook</a>
+    <script src="assets/js/jQuery3.6.0.js"></script>
+    <script>
+        window.onload = function() {
+            let submitBtn = document.querySelector('#submitBtn');
+            submitBtn.addEventListener('click', (e) => {
+               gokolectSignUp(e);
+            });
+        }
+
+        function gokolectSignUp(e) {
+            e.preventDefault();
+            let formData =  new FormData(signupForm);
+            formData.append("action", "sign_up_auth");
+            $.ajax({
+                url: "http://localhost/gokolect_api/web/index.php",
+                method: "POST",
+                data: formData,
+                dataType: "JSON",
+                processData: false, 
+                contentType: false,               
+                cache: false,
+                success: function(json) {
+                    console.log(json);
+                },
+                catchError: function(console) {
+                    console.log(error);
+                }
+            });
+        }
+        function submitForm() {
+            let formData = {};
+            let first_name = document.querySelector('#first_name');
+            let last_name = document.querySelector('#last_name');
+            let mobile = document.querySelector('#mobile');
+            let email = document.querySelector('#email');
+            let password = document.querySelector('#password');
+            let confirm_password = document.querySelector('#confirm_password');
+            formData.action = "sign_up_auth";
+            formData.first_name = first_name.value;
+            formData.last_name = last_name.value;
+            formData.mobile = mobile.value;
+            formData.email = email.value;
+            formData.password = password.value;
+            formData.confirm_password = confirm_password.value;
+            console.log(formData);
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "http://localhost/gokolect_api/web/index.php", true); 
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.onreadystatechange = function(res) {
+                // console.log(res);
+                if (this.readyState == 4 && this.status == 200) {
+                    // Response
+                    var response = this.responseText;
+                }
+            };
+            xhttp.send(JSON.stringify(formData));
+            console.log(xhttp.responseText);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="shortcut icon" href="../assets/images/polljota_logo_s.png" type="image/png"> -->
+    <!-- Start loading StyleSheets -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">  
+    <link rel="stylesheet" href="assets/css/util.css">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500;900&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="entry/assets/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="assets/css/signup.css">
+    <title>Gokolect| Sign Up</title>
+</head>
+<body>
+    <main class="main-container">
+        <aside class="side-bar col-6 col-md-6 col-sm-12 col-lg-6">
+            <div class="form-header">
+                <h1 class="form-title">Sign In</h1>
+                <p class="fw-normal text-white">Get your Election processes all setup with just few steps</p>
+                <a href="index.html" class=""> <img src="assets/images/polljota_logo.png" alt="" class="brand-logo" alt="Polljotter logo" /></a>
+            </div>
+        </aside>
+        <section class="form-section col-6 col-md-6 col-sm-12 col-lg-6">
+            <div class="form-container d-flex flex-column justify-content-between align-items-center" id="signInContainer">               
+                <form class="col-sm-12 col-md-10 col-lg-10 p-4 d-flex flex-column" role="form" id="loginForm">
+                    <div class="form-group p4 mx-4 my-1">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control rounded" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group p4 mx-4 my-1">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" class="form-control rounded" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group mx-4 my-1 d-flex justify-content-between align-items-center">
+                        <div class="form-check d-flex justify-content-center align-items-center fw-bold text-muted">
+                            <input type="checkbox" class="form-check-input" name="remember_me" id="remember_me" />
+                            <label for="remember_me" class="form-check-label">Remember Me</label>
+                        </div>
+                        <div class="">
+                            <a href="#" class="link text-decoration-none text-danger fw-bold" id="resetLink">Forgot Password?</a>
+                        </div>
+                    </div>                    
+
+
+                    <button class="btn btn-custom-primary rounded my-4 mx-4" id="signin-btn" type="button">Sign In</button>
+                </form>
+                <p class="text-secondary text-center">You can quickly subscribe from <a href="signup.html" class="text-decoration-none text-primary">here</a> if you have not done so!</p>
+            </div>
+            <div class="form-container d-none flex-column justify-content-between align-items-center" id="resetContainer" arial-hidden="true">
+                <div class="alert alert-warning alert-outline rounded ms-5 me-5 mt-2">
+                    If you are sure you have forgotten your password then you will need to reset your password
+                </div>
+                <p class="text-muted p-3 ms-5 me-5 mt-2 mb-2" id="responseText">
+                    A password reset link will be sent to your email, with instructions how to reset your password.
+                </p>
+                <form class="col-sm-12 col-md-10 col-lg-10 p-4 d-flex flex-column" role="form" id="passwordResetForm">
+                    <div class="form-group p4 mx-4 my-1">
+                        <label for="email">Email</label>
+                        <input type="email" name="reset_email" id="reset_email" class="form-control form-control-solid rounded" placeholder="Enter your email" required>
+                    </div>                  
+
+
+                    <button class="btn btn-custom-primary rounded my-4 mx-4" id="passwordResetBtn" type="button">Reset Password</button>
+                </form>
+
+                <form class="col-sm-12 col-md-10 col-lg-10 p-4 d-none flex-column" role="form" id="confirmResetForm">
+                    <div class="form-group p4 mx-4 my-1">
+                        <label for="confirm_code">Confirm OTC</label>
+                        <input type="text" name="confirm_code" id="confirm_code" class="form-control form-control-solid rounded" placeholder="Enter your Code" required>
+                    </div>                  
+                    <div class="form-group p4 mx-4 my-1">
+                        <label for="new_password">New Password</label>
+                        <input type="password" name="new_password" id="new_password" class="form-control form-control-solid rounded" placeholder="Enter new password" required>
+                    </div>                  
+                    <div class="form-group p4 mx-4 my-1">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" name="confirm_password" id="confirm_password" class="form-control form-control-solid rounded" placeholder="Retype your password" required>
+                    </div>                  
+
+
+                    <button class="btn btn-custom-primary rounded my-4 mx-4" id="resetPasswordBtn" type="button">Reset Password</button>
+                </form>
+            </div>
+        </section>
+    </main> 
+    
+    <script src="assets/js/jquery3.6.0.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery_block_ui.js"></script>
+    <script src="assets/js/sweetalert2.min.js"></script>
+    <script src="assets/js/jquery.cookie.js"></script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.blockUI();
+
+        window.addEventListener('DOMContentLoaded', function() {
+            $.unblockUI();
+        });
+
+        $(document).ready(function(){
+            const loginBtn = document.querySelector("#signin-btn")
+            const storeJWT = {}
+            storeJWT.setJWT = function (data) {
+                this.JWT = data
+            }
+            
+            loginBtn.addEventListener("click", async e => {
+               signIn(e, storeJWT);
+            });
+
+            $('#resetLink').click(function(e){
+                $('#signInContainer').addClass('d-none', true);
+                $('#signInContainer').removeClass('d-flex', true);
+                $('#resetContainer').addClass('d-flex');
+                $('#resetContainer').removeClass('d-none');
+            });
+
+            $('#passwordResetBtn').click(function(e){
+                sendPasswordResetLink(e);
+            });
+
+            $('#resetPasswordBtn').click(function(e){
+                resetPassword(e);
+            });
+        });
+
+        $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+        function signIn(e, storeJWT) {
+            e.preventDefault();
+            let formData = new FormData(loginForm);
+            formData.append('action', 'sign_in_auth');        
+            $.ajax({
+                url: "../gokolect_api/web/index.php",
+                type: "POST",
+                headers: {
+                    // "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                },
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: 'JSON',
+                success: function(json){
+                    console.log(json);
+                    if (json.statuscode === 0) {
+                        storeJWT.setJWT(json.data);
+                        $.cookie('_jwt', json.data, { expires: 1, path: 'dashboard.html'});
+                        $.removeCookie('_jwtp', { path: 'index.html' });
+                        Swal.fire({
+                            title: "Success",
+                            html: json.status,
+                            type: "success",
+                            icon: "success",
+                            confirmButtonText: "Ok"
+                        }).then(function(res){
+                            console.log(json, res);
+                            window.location.href = "dashboard.html";
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            html: json.status,
+                            type: "error",
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    console.log(jqXHR);
+                    Swal.fire({
+                        title: "Error",
+                        html: jqXHR.responseText,
+                        type: "error",
+                        confirmButtonText: "Ok"
+                    });
+                }
+            });
+        }
+
+        function sendPasswordResetLink(e) {
+            e.preventDefault();
+            let formData = new FormData(passwordResetForm);
+            // let url = http://localhost/gokolect_api/web/index.php;
+            formData.append('action', 'reset_password_auth');        
+            $.ajax({
+                url: "../gokolect_api/web/index.php",
+                type: "POST",
+                headers: {
+                    // "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                },
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: 'JSON',
+                success: function(json){
+                    console.log(json);
+                    if (json.statuscode === 0) {
+                        // storeJWT.setJWT(json.data);
+                        // $.cookie('polljotter_jwt', json.data, { expires: 1, path: '/polljota/entry/'+json.page });
+                        Swal.fire({
+                            title: "Success",
+                            html: json.status,
+                            icon: "success",
+                            confirmButtonText: "Ok"
+                        }).then(function(res){
+                            // window.location.reload();
+                            $('#confirmResetForm').removeClass('d-none');
+                            $('#confirmResetForm').addClass('d-flex');
+                            $('#passwordResetForm').removeClass('d-flex');
+                            $('#passwordResetForm').addClass('d-none');
+                            $('#responseText').text(json.status);
+                            $('#responseText').removeClass('text-muted');
+                            $('#responseText').addClass('text-success');
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            html: json.status,
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    console.log(jqXHR);
+                    Swal.fire({
+                        title: "Error",
+                        html: jqXHR.responseText,
+                        confirmButtonText: "Ok"
+                    });
+                }
+            });
+        }
+
+        function resetPassword(e) {
+            e.preventDefault();
+            let formData = new FormData(confirmResetForm);
+            formData.append('action', 'confirm_otp_auth');        
+            $.ajax({
+                url: "../gokolect_api/web/index.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: 'JSON',
+                success: function(json){
+                    console.log(json);
+                    if (json.statuscode === 0) {
+                        Swal.fire({
+                            title: "Success",
+                            html: json.status,
+                            icon: "success",
+                            confirmButtonText: "Ok"
+                        }).then(function(res){
+                            console.log(json, res);
+                            window.location.reload()
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            html: json.status,
+                            icon: "error",
+                            confirmButtonText: "Ok"
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.responseText)
+                    console.log(errorThrown);
+                    console.log(jqXHR);
+                    Swal.fire({
+                        title: "Error",
+                        html: jqXHR.responseText,
+                        icon: "error",
+                        confirmButtonText: "Ok"
+                    });
+                }
+            });
+        }
+        
+    </script>
+</body>
+</html>
