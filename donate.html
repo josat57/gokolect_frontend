@@ -176,8 +176,7 @@
                     "action": "generate_ref_payment"
                 },
                 headers: {
-                    Authorization: `Bearer ${$.cookie('_jwtp')}`,
-                    
+                    Authorization: `Bearer ${$.cookie('_jwtp')}`                    
                 },
                 success: function(json) {			
                     if (json.statuscode === 0) {
@@ -200,7 +199,7 @@
             let formData = new FormData(donationForm); 
             formData.append('action', 'process_payment');   
             $.ajax({
-                url: "https://www.bootqlass.com/gokolect_api/",
+                url: "https://gokolectapp.bootqlass.com/",
                 type: "POST",
                 data: formData,
                 headers: {
