@@ -1,2 +1,2 @@
 # gokolect_frontend
-Frontend developemtn repository for Gokolect
+Frontend development repository for Gokolect

@@ -194,7 +194,6 @@
         function sendPasswordResetLink(e) {
             e.preventDefault();
             let formData = new FormData(passwordResetForm);
-            // let url = http://localhost/gokolect_api/web/index.php;
             formData.append('action', 'reset_password_auth');        
             $.ajax({
                 url: "https://gokolectapp.bootqlass.com/",
