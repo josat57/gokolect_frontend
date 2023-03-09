@@ -62,7 +62,7 @@
     function verifyEmail() {        
         $.ajax({
             type: "POST",
-            url: "../gokolect_api/web/index.php",
+            url: "https://gokolectapp.bootqlass.com/",
             data: {
                 "token": newQueryString('token'),
                 "action": "verify_signup_auth"
@@ -101,20 +101,20 @@
         });
     }
 
-      function newQueryString(a) {
-          var test = window.location.href;
-          var testArr = test.split("#");
-          test = testArr[0];
-          var findstr = (a + '=');
-          if (test.indexOf(findstr) != -1) {
-              test = test.substring(test.indexOf(findstr) + findstr.length);
-              if (test.indexOf('&') != -1) {
-                  test = test.substring(0, test.indexOf('&'));
-              }
-              return decodeURIComponent(test);
-          }
-          return "";
-      }
+    function newQueryString(a) {
+        var test = window.location.href;
+        var testArr = test.split("#");
+        test = testArr[0];
+        var findstr = (a + '=');
+        if (test.indexOf(findstr) != -1) {
+            test = test.substring(test.indexOf(findstr) + findstr.length);
+            if (test.indexOf('&') != -1) {
+                test = test.substring(0, test.indexOf('&'));
+            }
+            return decodeURIComponent(test);
+        }
+        return "";
+    }
   </script>
 </body>
 

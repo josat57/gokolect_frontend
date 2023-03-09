@@ -142,7 +142,7 @@
             let formData = new FormData(loginForm);
             formData.append('action', 'sign_in_auth');        
             $.ajax({
-                url: "../gokolect_api/web/index.php",
+                url: "https://gokolectapp.bootqlass.com/",
                 type: "POST",
                 headers: {
                     // "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -197,7 +197,7 @@
             // let url = http://localhost/gokolect_api/web/index.php;
             formData.append('action', 'reset_password_auth');        
             $.ajax({
-                url: "../gokolect_api/web/index.php",
+                url: "https://gokolectapp.bootqlass.com/",
                 type: "POST",
                 headers: {
                     // "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -253,7 +253,7 @@
             let formData = new FormData(confirmResetForm);
             formData.append('action', 'confirm_otp_auth');        
             $.ajax({
-                url: "../gokolect_api/web/index.php",
+                url: "https://gokolectapp.bootqlass.com/",
                 type: "POST",
                 data: formData,
                 contentType: false,

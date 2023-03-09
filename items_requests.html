@@ -57,7 +57,7 @@
         
         function getGiftItems() {
             $.ajax({
-                url: '../gokolect_api/web/index.php',
+                url: 'https://gokolectapp.bootqlass.com/',
                 type: 'POST',
                 dataType: 'JSON',
                 data: {
@@ -132,7 +132,7 @@
         function collectThisItem(item_code) {
             console.log(item_code);
             $.ajax({
-                url: '../gokolect_api/web/index.php',
+                url: 'https://gokolectapp.bootqlass.com/',
                 type: 'POST',
                 dataType: 'JSON',
                 data: {
@@ -178,7 +178,7 @@
         function displayRequestList(e, item_code) {
             e.preventDefault();
             $.ajax({
-                url: '../gokolect_api/web/index.php',
+                url: 'https://gokolectapp.bootqlass.com/',
                 type: 'POST',
                 dataType: 'JSON',
                 data: {
@@ -242,7 +242,7 @@
         function giveItemToSelected(item_code, selected) {
             console.log(item_code, selected);
             $.ajax({
-                url: '../gokolect_api/web/index.php',
+                url: 'https://gokolectapp.bootqlass.com/',
                 type: 'POST',
                 dataType: 'JSON',
                 data: {

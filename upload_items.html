@@ -128,7 +128,7 @@
             let formData = new FormData(addItemForm);
             formData.append('action', 'upload_item_users');        
             $.ajax({
-                url: "../gokolect_api/web/index.php",
+                url: "https://gokolectapp.bootqlass.com/",
                 type: "POST",
                 data: formData,
                 headers: {
@@ -184,7 +184,7 @@
              
         function getCategories() {
             $.ajax({
-                url: '../gokolect_api/web/index.php',
+                url: 'https://gokolectapp.bootqlass.com/',
                 type: 'POST',
                 dataType: 'JSON',
                 data: {
