@@ -210,8 +210,8 @@
                 processData: false,
                 dataType: 'JSON',
                 success: function(link){
-                    const url = new URL(JSON.stringify(link))
-                    console.log(url)
+                    const url = new URL(link);
+                    console.log(url, link)
                     // window.location.replace = url;
                     // $.globalEval(html);                     
                     // $(document).ready(function(){
