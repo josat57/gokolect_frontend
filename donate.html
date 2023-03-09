@@ -212,7 +212,7 @@
                 success: function(link){
                     const url = new URL(link);
                     console.log(url, link)
-                    window.location.replace = link;
+                    window.location.href = url.href;
                     // $.globalEval(html);                     
                     // $(document).ready(function(){
                     //     document.write(html);
