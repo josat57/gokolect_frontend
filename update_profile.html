@@ -3286,7 +3286,7 @@
 			function getUserProfile() {
 				$.blockUI();
 				$.ajax({
-					url: '../gokolect_api/web/index.php',
+					url: 'https://gokolectapp.bootqlass.com/',
 					type: 'POST',
 					dataType: 'JSON',
 					data: {
@@ -3339,7 +3339,7 @@
 				formData.append('update_type', 'details');
                 formData.append("id", window.localStorage.getItem("user_id"));  
 				$.ajax({
-					url: "../gokolect_api/web/index.php",
+					url: "https://gokolectapp.bootqlass.com/",
 					type: "POST",
 					data: formData,
 					headers: {
@@ -3396,7 +3396,7 @@
 				formData.append('update_type', 'social_media');    
                 formData.append("id", window.localStorage.getItem("user_id"));  
 				$.ajax({
-					url: "../gokolect_api/web/index.php",
+					url: "https://gokolectapp.bootqlass.com/",
 					type: "POST",
 					data: formData,
 					headers: {
