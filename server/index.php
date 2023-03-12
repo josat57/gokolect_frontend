@@ -17,17 +17,22 @@
 error_reporting(E_ALL && E_NOTICE);
 ini_set('display_errors', 1);
 
-if (isset($_SERVER['HTTP_ORIGIN'])) {
-    header("Access-Control-Allow-Origin: *");
-    header("Content-Type: application/json; charset=UTF-8");
-    header('Access-Control-Allow-Credentials: true');
-    header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
-    header("Access-Control-Max-Age: 3600");
-    header("Access-Control-Allow-Headers:Origin, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, accept");
+die(var_dump($_POST, $_SERVER));
+header('Access-Control-Allow-Origin: https://gokolectapp.bootqlass.com');
+header("Access-Control-Allow-Methods: HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+
+header('Content-Type: application/json');
+
+$method = $_SERVER['REQUEST_METHOD'];
+if ($method == "OPTIONS") {
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+header("HTTP/1.1 200 OK");
+die();
 }
 
 $response = null;
-die(var_dump($_POST));
 
 if (isset($_POST['file']) && isset($_POST['data']) && isset($_POST['action'])) {
     
