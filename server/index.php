@@ -48,7 +48,7 @@ if (isset($_POST['file']) && isset($_POST['data']) && isset($_POST['action'])) {
     }
 
 } else {
-    $response = ["statuscode" => -1, "status" =>"Error : File not uploaded to remote server."];
+    $response = ["statuscode" => -1, "status" =>"Error : File not uploaded to remote server.", "data" => $_POST];
 }
 
 
@@ -101,7 +101,7 @@ function uploadItems($data, $file, $imageFileType, $dir)
     if (!file_exists($target_file)) {
         $uploadOk = 1;
     }
-    die(var_dump($file, $target_file));
+    
     if ($uploadOk != 1) {
         $response = ['status' => $uploadOk, 'statuscode' => $uploadOk];
     } else {
