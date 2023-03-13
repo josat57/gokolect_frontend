@@ -17,7 +17,6 @@
 error_reporting(E_ALL && E_NOTICE);
 ini_set('display_errors', 1);
 
-die(var_dump($_POST, $_SERVER));
 header('Access-Control-Allow-Origin: https://gokolectapp.bootqlass.com');
 header("Access-Control-Allow-Methods: HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
