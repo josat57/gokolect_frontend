@@ -33,12 +33,12 @@ ini_set('display_errors', 1);
 
 $response = null;
 
-if (isset($_POST['file']) && isset($_POST['data']) && isset($_POST['action'])) {
+if (isset($_POST['photo']) && isset($_POST['data']) && isset($_POST['action'])) {
     
     if ($_POST['action'] === 'items') {
-        $response = uploadItems($_POST['data'], $_POST['file'], $_POST['imageFileType'], $_POST['dir']);
+        $response = uploadItems($_POST['data'], $_POST['photo'], $_POST['imageFileType'], $_POST['dir']);
     } else if ($_POST['action'] === 'profile') {
-        $response = uploadProfile($_POST['data'], $_POST['file'], $_POST['imageFileType'], $_POST['dir']);
+        $response = uploadProfile($_POST['data'], $_POST['photo'], $_POST['imageFileType'], $_POST['dir']);
     } else if ($_POST['action'] === 'getfile') {
         $response = getUploadedImages($_POST['dir'], $_POST['thefile']);
     } else if ($_POST['action'] === 'deletefile') {
