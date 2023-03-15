@@ -48,7 +48,7 @@ if (isset($_POST['photo']) && isset($_POST['data']) && isset($_POST['action'])) 
     }
 
 } else {
-    $response = ["statuscode" => -1, "status" =>"Error : File not uploaded to remote server.", "data" => $_POST];
+    $response = ["statuscode" => -1, "status" =>"Error : File not uploaded to remote server.", "data" => $_POST, "file"=>$_FILES];
 }
 
 
