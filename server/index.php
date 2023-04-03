@@ -23,16 +23,15 @@ header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Conte
 
 header('Content-Type: application/json');
 
-$method = $_SERVER['REQUEST_METHOD'];
-if ($method == "OPTIONS") {
-header('Access-Control-Allow-Origin: https://gokolectapp.bootqlass.com');
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
-header("HTTP/1.1 200 OK");
-die();
-}
+// $method = $_SERVER['REQUEST_METHOD'];
+// if ($method == "OPTIONS") {
+// header('Access-Control-Allow-Origin: https://gokolectapp.bootqlass.com');
+// header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+// header("HTTP/1.1 200 OK");
+// die();
+// }
 
 $response = $_POST;
-die(var_dump($response));
 if (isset($_POST['data']) && isset($_POST['id']) && isset($_POST['action'])) {    
     if ($_POST['action'] === 'items') {
         $response = uploadItems($_POST['id'], $_POST['data'], $_POST['imageFileType'], $_POST['dir']);
