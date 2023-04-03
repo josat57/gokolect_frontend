@@ -13,7 +13,7 @@
  * @license  MIT License
  * @link     https://gokolect.test
  */
-die(var_dump($_POST));
+
 error_reporting(E_ALL && E_NOTICE);
 ini_set('display_errors', 1);
 
@@ -37,7 +37,7 @@ if (isset($_POST['data']) && isset($_POST['id']) && isset($_POST['action'])) {
     if ($_POST['action'] === 'items') {
         $response = uploadItems($_POST['id'], $_POST['data'], $_POST['imageFileType'], $_POST['dir']);
     } else if ($_POST['action'] === 'profile') {
-        $response = uploadProfile($_POST['id'], $_POST['data'], $_POST['imageFileType'], $_POST['dir']);
+        $response = uploadProfile($_POST['data'], $_POST['dir'], $_POST["file_name"]);
     } else if ($_POST['action'] === 'getfile') {
         $response = getUploadedImages($_POST['dir'], $_POST['thefile']);
     } else if ($_POST['action'] === 'deletefile') {
@@ -122,16 +122,13 @@ function uploadItems($data, $file, $imageFileType, $dir)
  * 
  * @return mix
  */
-function uploadProfile($data, $file, $imageFileType, $dir)
+function uploadProfile($file, $dir, $fileName)
 {                       
     $target_dirt = dirt($dir);
-    $dt = strtotime('now');
     $target_dir = strtolower($target_dirt.DIRECTORY_SEPARATOR.strtolower(str_replace(' ', '', $dir)). DIRECTORY_SEPARATOR);
     $uploadOk = 1;
-    $name = "gkpf". $dt .$data;
-    $filename = str_replace(' ', '', strtolower($dt."_".$data)).".".$imageFileType;
-    $target_file = strtolower($target_dir . str_replace(' ', '', $name).".".$imageFileType);
-    
+    $target_file = strtolower($target_dir . $fileName);
+    die(var_dump($target_dir, $target_file));
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0777, true); 
     } 
@@ -142,9 +139,14 @@ function uploadProfile($data, $file, $imageFileType, $dir)
 
     if ($uploadOk != 1) {
         $response = ['status' => true, 'statuscode' => $uploadOk];
-    } else {        
-        if (move_uploaded_file($file['profile_photo']["tmp_name"], $target_file)) {                          
-            $response = ['status' => "Uploaded", 'statuscode' => 200, 'filename' =>$filename, 'target_dir' => $dir];
+    } else {
+        $encoded_file = $file;
+        $decoded_file = base64_decode($encoded_file);
+        /* Now you can copy the uploaded file to your server. */
+        ;        
+        // if (move_uploaded_file($file['profile_photo']["tmp_name"], $target_file)) {                          
+        if (file_put_contents($target_file, $decoded_file)) {                          
+            $response = ['status' => "Uploaded", 'statuscode' => 200, 'filename' =>$fileName, 'target_dir' => $dir];
         } else {
             $response = ['status' => "Unable to upload the image...", 'statuscode' => -1];   
         }
