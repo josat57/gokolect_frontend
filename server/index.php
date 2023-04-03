@@ -128,7 +128,6 @@ function uploadProfile($file, $dir, $fileName)
     $target_dir = strtolower($target_dirt.DIRECTORY_SEPARATOR.strtolower(str_replace(' ', '', $dir)). DIRECTORY_SEPARATOR);
     $uploadOk = 1;
     $target_file = strtolower($target_dir . $fileName);
-    die(var_dump($target_dir, $target_file));
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0777, true); 
     } 
