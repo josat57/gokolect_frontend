@@ -32,6 +32,7 @@ header('Content-Type: application/json');
 // }
 
 $response = $_POST;
+die(var_dump($response));
 if (isset($_POST['data']) && isset($_POST['id']) && isset($_POST['action'])) {    
     if ($_POST['action'] === 'items') {
         $response = uploadItems($_POST['id'], $_POST['data'], $_POST['imageFileType'], $_POST['dir']);
