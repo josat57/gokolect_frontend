@@ -33,11 +33,11 @@ header('Content-Type: application/json');
 
 $response = $_POST;
 
-if (isset($_POST['data']) && isset($_POST['id']) && isset($_POST['action'])) {    
+if (isset($_POST['tmp_name']) && isset($_POST['file_name']) && isset($_POST['action'])) {    
     if ($_POST['action'] === 'items') {
         $response = uploadItems($_POST['id'], $_POST['data'], $_POST['imageFileType'], $_POST['dir']);
     } else if ($_POST['action'] === 'profile') {
-        $response = uploadProfile($_POST['data'], $_POST['dir'], $_POST["file_name"]);
+        $response = uploadProfile($_POST['tmp_name'], $_POST['dir'], $_POST["file_name"]);
     } else if ($_POST['action'] === 'getfile') {
         $response = getUploadedImages($_POST['dir'], $_POST['thefile']);
     } else if ($_POST['action'] === 'deletefile') {
@@ -140,10 +140,10 @@ function uploadProfile($file, $dir, $fileName)
         $response = ['status' => true, 'statuscode' => $uploadOk];
     } else {
         $encoded_file = $file;
-        $decoded_file = base64_decode($encoded_file);
+        // $decoded_file = base64_decode($encoded_file);
         /* Now you can copy the uploaded file to your server. */
-        die(var_dump($decoded_file));
-        if (move_uploaded_file($decoded_file['profile_photo']["tmp_name"], $target_file)) {                          
+        // die(var_dump($decoded_file));
+        if (move_uploaded_file($file["tmp_name"], $target_file)) {                          
         // if (file_put_contents($target_dir, $decoded_file)) {                          
             $response = ['status' => "Uploaded", 'statuscode' => 200, 'filename' =>$fileName, 'target_dir' => $dir];
         } else {
