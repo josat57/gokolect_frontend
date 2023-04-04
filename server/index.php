@@ -123,7 +123,8 @@ function uploadItems($data, $file, $imageFileType, $dir)
  * @return mix
  */
 function uploadProfile($file, $dir, $fileName)
-{                       
+{             
+    die(var_dump($_POST, $_FILES));          
     $target_dirt = dirt($dir);
     $target_dir = strtolower($target_dirt.DIRECTORY_SEPARATOR.strtolower(str_replace(' ', '', $dir)). DIRECTORY_SEPARATOR);
     $uploadOk = 1;
