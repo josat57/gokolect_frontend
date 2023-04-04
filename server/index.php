@@ -33,7 +33,7 @@ header('Content-Type: application/json');
 
 $response = $_POST;
 
-if (isset($_POST['file_name']) && isset($_FILES['tmp_name']) && isset($_POST['action'])) {    
+if (isset($_POST['file_name']) && isset($_FILES['file']['tmp_name']) && isset($_POST['action'])) {    
     if ($_POST['action'] === 'items') {
         $response = uploadItems($_POST['id'], $_POST['data'], $_POST['imageFileType'], $_POST['dir']);
     } else if ($_POST['action'] === 'profile') {
@@ -143,7 +143,7 @@ function uploadProfile($data, $file)
         // $decoded_file = base64_decode($encoded_file);
         /* Now you can copy the uploaded file to your server. */
         // die(var_dump($decoded_file));
-        if (move_uploaded_file($file['tmp_name'], $target_file)) {                          
+        if (move_uploaded_file($file['file']['tmp_name'], $target_file)) {                          
         // if (file_put_contents($target_dir, $decoded_file)) {                          
             $response = ['status' => "Uploaded", 'statuscode' => 200, 'filename' =>$data["file_name"], 'target_dir' => $data["dir"]];
         } else {
