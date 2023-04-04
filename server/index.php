@@ -84,7 +84,7 @@ if (isset($_POST['file_name']) && isset($_FILES['file']['tmp_name']) && isset($_
 function uploadItems($data, $file)
 {        
     $target_dirt = dirt($data["dir"]);
-    $target_dir = strtolower($target_dirt.DIRECTORY_SEPARATOR.strtolower(str_replace(' ', '', $data["dir"])). DIRECTORY_SEPARATOR);
+    $target_dir = strtolower($target_dirt.DIRECTORY_SEPARATOR);
 
     $uploadOk = null;
    
@@ -123,7 +123,7 @@ function uploadItems($data, $file)
 function uploadProfile($data, $file)
 {         
     $target_dirt = dirt($data["dir"]);
-    $target_dir = strtolower($target_dirt.DIRECTORY_SEPARATOR.strtolower(str_replace(' ', '', $data["dir"])). DIRECTORY_SEPARATOR);
+    $target_dir = strtolower($target_dirt.DIRECTORY_SEPARATOR);
     $uploadOk = 1;
     $target_file = strtolower($target_dir . $data["file_name"]);
     if (!is_dir($target_dir)) {
@@ -159,7 +159,7 @@ function dirt($dir)
     $applpicsdir = 'file_server/';
 
     if (!is_dir($applpicsdir)) {
-        $applpicsdir = "file_server/";
+        $applpicsdir = "file_server/".$dir;
     } else {
         $applpicsdir = (is_link($applpicsdir)?readlink($applpicsdir):$applpicsdir)."/{$new_dir}";
         // $applpicsdir = (is_link($applpicsdir)?readlink($applpicsdir):$applpicsdir)."/{$_SERVER['HTTP_HOST']}/{$new_dir}";
