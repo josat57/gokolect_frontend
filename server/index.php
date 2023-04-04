@@ -142,9 +142,9 @@ function uploadProfile($file, $dir, $fileName)
         $encoded_file = $file;
         $decoded_file = base64_decode($encoded_file);
         /* Now you can copy the uploaded file to your server. */
-        ;        
-        // if (move_uploaded_file($file['profile_photo']["tmp_name"], $target_file)) {                          
-        if (file_put_contents($target_dir, $decoded_file)) {                          
+        die(var_dump($decoded_file));
+        if (move_uploaded_file($decoded_file['profile_photo']["tmp_name"], $target_file)) {                          
+        // if (file_put_contents($target_dir, $decoded_file)) {                          
             $response = ['status' => "Uploaded", 'statuscode' => 200, 'filename' =>$fileName, 'target_dir' => $dir];
         } else {
             $response = ['status' => "Unable to upload the image...", 'statuscode' => -1];   
