@@ -144,7 +144,7 @@ function uploadProfile($file, $dir, $fileName)
         /* Now you can copy the uploaded file to your server. */
         ;        
         // if (move_uploaded_file($file['profile_photo']["tmp_name"], $target_file)) {                          
-        if (file_put_contents($target_file, $decoded_file)) {                          
+        if (file_put_contents($target_dir, $decoded_file)) {                          
             $response = ['status' => "Uploaded", 'statuscode' => 200, 'filename' =>$fileName, 'target_dir' => $dir];
         } else {
             $response = ['status' => "Unable to upload the image...", 'statuscode' => -1];   
