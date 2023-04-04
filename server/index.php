@@ -35,7 +35,7 @@ $response = $_POST;
 
 if (isset($_POST['file_name']) && isset($_FILES['file']['tmp_name']) && isset($_POST['action'])) {    
     if ($_POST['action'] === 'items') {
-        $response = uploadItems($_POST['id'], $_POST['data'], $_POST['imageFileType'], $_POST['dir']);
+        $response = uploadItems($_POST, $_FILES);
     } else if ($_POST['action'] === 'profile') {
         $response = uploadProfile($_POST, $_FILES);
     } else if ($_POST['action'] === 'getfile') {
@@ -81,20 +81,18 @@ if (isset($_POST['file_name']) && isset($_FILES['file']['tmp_name']) && isset($_
  * 
  * @return mix
  */
-function uploadItems($data, $file, $imageFileType, $dir)
-{    
-    $dt = strtotime(date('Ymd'));
-    $target_dirt = dirt($dir);
-    $target_dir = strtolower($target_dirt.DIRECTORY_SEPARATOR);
+function uploadItems($data, $file)
+{        
+    $target_dirt = dirt($data["dir"]);
+    $target_dir = strtolower($target_dirt.DIRECTORY_SEPARATOR.strtolower(str_replace(' ', '', $data["dir"])). DIRECTORY_SEPARATOR);
+
     $uploadOk = null;
-    // $imageFileType = explode("/", $file['item_image']["type"]);
-    $filename = str_replace(' ', '', strtolower($dt."_".$data)).".".$imageFileType;
-    $target_file = $target_dir."/". str_replace(' ', '', strtolower($dt."_".$data)).".".$imageFileType;    
+   
+    $target_file = strtolower($target_dir . $data["file_name"]);    
     
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0777, true); 
-    } 
-    
+    }     
     
     if (!file_exists($target_file)) {
         $uploadOk = 1;
@@ -103,10 +101,10 @@ function uploadItems($data, $file, $imageFileType, $dir)
     if ($uploadOk != 1) {
         $response = ['status' => $uploadOk, 'statuscode' => $uploadOk];
     } else {
-        if (move_uploaded_file($file, $target_file)) {            
-            $response = ['status' => "Uploaded", 'statuscode' => 200, 'filename' =>$filename, 'target_dir' => $dir];
+        if (move_uploaded_file($file['file']['tmp_name'], $target_file)) {                          
+            $response = ['status' => "Uploaded", 'statuscode' => 200, 'filename' =>$data["file_name"], 'target_dir' => $data["dir"]];
         } else {
-            $response = ['status' => "upload failed", 'statuscode' => -1];   
+            $response = ['status' => "Unable to upload the image...", 'statuscode' => -1, 'file' => $file, "data" => $data];   
         }
     }
     return $response;        
@@ -139,12 +137,7 @@ function uploadProfile($data, $file)
     if ($uploadOk != 1) {
         $response = ['status' => true, 'statuscode' => $uploadOk];
     } else {
-        $encoded_file = $file;
-        // $decoded_file = base64_decode($encoded_file);
-        /* Now you can copy the uploaded file to your server. */
-        // die(var_dump($decoded_file));
-        if (move_uploaded_file($file['file']['tmp_name'], $target_file)) {                          
-        // if (file_put_contents($target_dir, $decoded_file)) {                          
+        if (move_uploaded_file($file['file']['tmp_name'], $target_file)) {                        
             $response = ['status' => "Uploaded", 'statuscode' => 200, 'filename' =>$data["file_name"], 'target_dir' => $data["dir"]];
         } else {
             $response = ['status' => "Unable to upload the image...", 'statuscode' => -1, 'file' => $file, "data" => $data];   
