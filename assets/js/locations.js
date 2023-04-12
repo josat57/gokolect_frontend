@@ -40,7 +40,7 @@
                 $.each(data, function (idx, value) {
                     if (country_code === value.code) {
                         var option = $("<option selected='selected' />")
-                        $("#country").text("");
+                        // $("#country").text("");
 						option.text(value.name);
                         option.attr(value.code);
                         $("#country").prepend(option).trigger("change");
@@ -70,8 +70,10 @@
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
                         if (val.code === country_code) {
-                            $("#state").text("");
-                            $("#state :selected").prepend('<option value="' + val.code + '">' + val.name + '</option>').trigger('change');
+                            var option = $("<option selected='selected' />")
+                            option.text(value.name);
+                            option.attr(value.code);
+                            $("#state").prepend(option).trigger('change');
                         }
                     });
                 });
@@ -98,8 +100,10 @@
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
                         if (val.code === country_code) {
-                            $("#city").text("");
-                            $("#city :selected").prepend('<option value="' + val.code + '">' + val.name + '</option>').trigger('change');
+                            var option = $("<option selected='selected' />");
+                            option.text(value.name);
+                            option.attr(value.code);
+                            $("#city :selected").prepend(option).trigger('change');
                         }
                     });
                 });
@@ -136,8 +140,10 @@
                                 if (nx === state_code) {
                                     $.each(Object.values(lga_values), function (key, val) {
                                         if (val.code === lga_code) {
-                                            $("#lga").text("");
-                                            $("#lga :selected").prepend('<option value="' + val.code + '">' + val.name + '</option>').trigger('change');
+                                            var option = $("<option selected='selected' />");
+                                            option.text(value.name);
+                                            option.attr(value.code);
+                                            $("#lga :selected").prepend(option).trigger('change');
                                         }
                                     });
                                 }
