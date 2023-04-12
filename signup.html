@@ -18,17 +18,16 @@
 </head>
 <body>
     <main class="main-container">
-        <aside class="side-bar col-6 col-md-6 col-sm-12 col-lg-6">
+        <section class="side-bar col-md-6 col-sm-12 col-lg-6">
             <div class="form-header">
-                <h1 class="form-title">Sign Up</h1>
-                <p class="text-white fw-normal ps-8 pe-8">Subscription on PollJota is just two clicks and you are in! to quickly setup your election process too in no time!!!</p>
-                <a href="index.html" class=""> <img src="assets/images/polljota_logo.png" alt="" class="brand-logo" alt="Polljotter logo" /></a>
+                <a href="index.html" class="brand-img"> <img src="assets/images/Gokolectlogo 1.png" alt="Gokolect Brand Logo" class="brand-logo" /></a>
+                <p class="fw-normal text-white">Focussed on Social Kindness!</p>
             </div>
-        </aside>
-        <section class="form-section col-6 col-md-6 col-sm-12 col-lg-6">
-            <div class="form-container d-flex justify-content-center align-items-center">               
-                <form class="col-sm-12 col-md-10 col-lg-10 p-4 d-flex flex-column" role="form" id="signupForm">
-                    
+        </section>
+        <section class="form-section col-md-6 col-sm-12 col-lg-6">
+            <h1 class="form-title mt-4">Sign Up</h1>
+            <div class="form-container" id="signInContainer">               
+                <form class="p-2 d-flex flex-column col-sm-12" role="form" id="signupForm">
                     <div class="form-group p4 mx-4 my-1">
                         <label for="first_name">First Name</label>
                         <input type="text" name="first_name" id="first_name" class="form-control rounded" placeholder="Enter your FirstName" required>
@@ -57,10 +56,14 @@
                         <label for="confirm_password">Confirm Password</label>
                         <input type="password" name="confirm_password" id="confirm_password" class="form-control rounded" placeholder="Confirm your password" required>
                     </div>
-                    <button class="btn btn-custom-primary rounded my-4 mx-4" id="signup-btn" type="button">Sign Up</button>
+                    <div class="form-group mx-4 my-1">
+                        <button class="btn btn-custom-primary rounded w-100" id="signup-btn" type="button">Sign Up</button>
+                    </div>               
                 </form>
+                <footer class="form-footer">
+                    <p class="text-secondary text-center p-4">Please Login in from <a href="signin.html" class="text-decoration-none text-primary">here</a> if you already created an account!</p>
+                </footer>
             </div>
-            <p class="text-secondary text-center">Please Login in from <a href="signin.html" class="text-decoration-none text-primary">here</a> if you already created an account!</p>
         </section>
     </main> 
     

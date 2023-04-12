@@ -18,16 +18,16 @@
 </head>
 <body>
     <main class="main-container">
-        <aside class="side-bar col-6 col-md-6 col-sm-12 col-lg-6">
+        <section class="side-bar col-md-6 col-sm-12 col-lg-6">
             <div class="form-header">
-                <h1 class="form-title">Sign In</h1>
-                <p class="fw-normal text-white">Get your Election processes all setup with just few steps</p>
-                <a href="index.html" class=""> <img src="assets/images/polljota_logo.png" alt="" class="brand-logo" alt="Polljotter logo" /></a>
+                <a href="index.html" class="brand-img"> <img src="assets/images/Gokolectlogo 1.png" alt="Gokolect Brand Logo" class="brand-logo" /></a>
+                <p class="fw-normal text-white">Focussed on Social Kindness!</p>
             </div>
-        </aside>
-        <section class="form-section col-6 col-md-6 col-sm-12 col-lg-6">
-            <div class="form-container d-flex flex-column justify-content-between align-items-center" id="signInContainer">               
-                <form class="col-sm-12 col-md-10 col-lg-10 p-4 d-flex flex-column" role="form" id="loginForm">
+        </section>
+        <section class="form-section col-md-6 col-sm-12 col-lg-6">
+            <h1 class="form-title mt-4">Sign In</h1>
+            <div class="form-container" id="signInContainer">               
+                <form class="p-2 d-flex flex-column col-sm-12" role="form" id="loginForm">
                     <div class="form-group p4 mx-4 my-1">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" class="form-control rounded" placeholder="Enter your email" required>
@@ -37,20 +37,25 @@
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" class="form-control rounded" placeholder="Enter your password" required>
                     </div>
-                    <div class="form-group mx-4 my-1 d-flex justify-content-between align-items-center">
-                        <div class="form-check d-flex justify-content-center align-items-center fw-bold text-muted">
+                    <div class="form-group mx-4 my-1 util-box">
+                        <div class="form-check text-muted">
                             <input type="checkbox" class="form-check-input" name="remember_me" id="remember_me" />
                             <label for="remember_me" class="form-check-label">Remember Me</label>
                         </div>
                         <div class="">
-                            <a href="#" class="link text-decoration-none text-danger fw-bold" id="resetLink">Forgot Password?</a>
+                            <a href="#" class="link text-decoration-none text-danger" id="resetLink">Forgot Password?</a>
                         </div>
-                    </div>                    
-
-
-                    <button class="btn btn-custom-primary rounded my-4 mx-4" id="signin-btn" type="button">Sign In</button>
+                    </div>   
+                    <div class="form-group mx-4 my-1">
+                        <button class="btn btn-custom-primary rounded w-100" id="signin-btn" type="button">Sign In</button>
+                    </div>                 
                 </form>
-                <p class="text-secondary text-center">You can quickly subscribe from <a href="signup.html" class="text-decoration-none text-primary">here</a> if you have not done so!</p>
+                <footer class="form-footer">
+                    <p class="text-secondary text-center p-4">
+                        You can quickly subscribe from 
+                        <a href="signup.html" class="text-decoration-none text-primary">here</a> if you have not done so!
+                    </p>
+                </footer>
             </div>
             <div class="form-container d-none flex-column justify-content-between align-items-center" id="resetContainer" arial-hidden="true">
                 <div class="alert alert-warning alert-outline rounded ms-5 me-5 mt-2">
