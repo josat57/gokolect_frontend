@@ -3040,7 +3040,10 @@
 								if ($('#' + fields).prop("tagName") == "SELECT") {
 									var option = $("<option selected='selected' />")
 									option.text(values);
-									$('#' + fields).prepend(option);               
+									$('#' + fields).prepend(option);   
+									getCountries(values);
+									getStates(values);
+									getCities(values);            
 								} else if (fields == "profile_photo") {
 									var img = new Image();
 									img.src = "data:image/jpg;base64,"+values;

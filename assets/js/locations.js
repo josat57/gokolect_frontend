@@ -61,7 +61,7 @@
                 });
             });
         } else {
-            $.getJSON("locals/states.json", (data) =>{
+            $.getJSON("assets/js/json/states.json", (data) =>{
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
                         if (val.code === country_code) {
@@ -75,17 +75,29 @@
     
     // Get cities by country code
     function getCities(country_code) {
-        $.getJSON("assets/js/json/cities.json", (data) =>{
-            $("#city").html("");
-            $("#city").append('<option value="">Select City/Town</option>');
-            $.each(data, function (idx, value) {
-                if (idx === country_code) {
-                    $.each(Object.values(value), function (key, val) {
-                        $("#city").append('<option value="' + val.code + '">' + val.name + '</option>');
-                    });
-                }
+        if (country_code.length === 2) {        
+            $.getJSON("assets/js/json/cities.json", (data) =>{
+                $("#city").html("");
+                $("#city").append('<option value="">Select City/Town</option>');
+                $.each(data, function (idx, value) {
+                    if (idx === country_code) {
+                        $.each(Object.values(value), function (key, val) {
+                            $("#city").append('<option value="' + val.code + '">' + val.name + '</option>');
+                        });
+                    }
+                });
             });
-        });
+        } else {
+            $.getJSON("assets/js/json/cities.json", (data) =>{
+                $.each(data, function (idx, value) {
+                    $.each(Object.values(value), function (key, val) {
+                        if (val.code === country_code) {
+                            $("#city :selected").prepend('<option value="' + val.code + '">' + val.name + '</option>').trigger('change');
+                        }
+                    });
+                });
+            });
+        }
     }
     
     function getLocalGovernments(state_code, lga_code = null) {
@@ -126,7 +138,6 @@
                     }
                 });
             });
-    
         }
     }
     
