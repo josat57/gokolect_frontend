@@ -43,7 +43,7 @@
                         // $("#country").text("");
 						option.text(value.name);
                         option.attr(value.code);
-                        $("#country").prepend(option).trigger("change");
+                        $("#country").prepend(option);
                         // $("#country :selected").prepend('<option value="' + value.code + '">' + value.name + '</option>').trigger('change');
                     }
                 });
@@ -73,7 +73,7 @@
                             var option = $("<option selected='selected' />")
                             option.text(value.name);
                             option.attr(value.code);
-                            $("#state").prepend(option).trigger('change');
+                            $("#state").prepend(option);
                         }
                     });
                 });
@@ -143,7 +143,7 @@
                                             var option = $("<option selected='selected' />");
                                             option.text(value.name);
                                             option.attr(value.code);
-                                            $("#lga :selected").prepend(option).trigger('change');
+                                            $("#lga").prepend(option).trigger('change');
                                         }
                                     });
                                 }
