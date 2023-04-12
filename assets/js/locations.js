@@ -66,6 +66,7 @@
                 });
             });
         } else {
+            console.log("State ", country_code)
             $.getJSON("assets/js/json/states.json", (data) =>{
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
@@ -96,6 +97,7 @@
                 });
             });
         } else {
+            console.log(Cities);
             $.getJSON("assets/js/json/cities.json", (data) =>{
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
@@ -103,7 +105,7 @@
                             var option = $("<option selected='selected' />");
                             option.text(value.name);
                             option.attr(value.code);
-                            $("#city :selected").prepend(option).trigger('change');
+                            $("#city").prepend(option).trigger('change');
                         }
                     });
                 });
