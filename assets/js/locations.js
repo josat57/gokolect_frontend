@@ -40,10 +40,10 @@
                 $.each(data, function (idx, value) {
                     if (country_code === value.code) {
                         var option = $("<option selected='selected' />")
-                        option.text("");
+                        $("#country").text("");
 						option.text(value.name);
                         option.attr(value.code);
-                        option.trigger("change");
+                        $("#country").prepend(option).trigger("change");
                         // $("#country :selected").prepend('<option value="' + value.code + '">' + value.name + '</option>').trigger('change');
                     }
                 });
