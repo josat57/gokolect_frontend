@@ -1,0 +1,47 @@
+
+<option data-kt-flag="flags/indonesia.svg" value="id">Bahasa Indonesia - Indonesian</option>
+										<option data-kt-flag="flags/malaysia.svg" value="msa">Bahasa Melayu - Malay</option>
+										<option data-kt-flag="flags/canada.svg" value="ca">Català - Catalan</option>
+										<option data-kt-flag="flags/czech-republic.svg" value="cs">Čeština - Czech</option>
+										<option data-kt-flag="flags/netherlands.svg" value="da">Dansk - Danish</option>
+										<option data-kt-flag="flags/germany.svg" value="de">Deutsch - German</option>
+										<option data-kt-flag="flags/united-kingdom.svg" value="en">English</option>
+										<option data-kt-flag="flags/united-kingdom.svg" value="en-gb">English UK - British English</option>
+										<option data-kt-flag="flags/spain.svg" value="es">Español - Spanish</option>
+										<option data-kt-flag="flags/philippines.svg" value="fil">Filipino</option>
+										<option data-kt-flag="flags/france.svg" value="fr">Français - French</option>
+										<option data-kt-flag="flags/gabon.svg" value="ga">Gaeilge - Irish (beta)</option>
+										<option data-kt-flag="flags/greenland.svg" value="gl">Galego - Galician (beta)</option>
+										<option data-kt-flag="flags/croatia.svg" value="hr">Hrvatski - Croatian</option>
+										<option data-kt-flag="flags/italy.svg" value="it">Italiano - Italian</option>
+										<option data-kt-flag="flags/hungary.svg" value="hu">Magyar - Hungarian</option>
+										<option data-kt-flag="flags/netherlands.svg" value="nl">Nederlands - Dutch</option>
+										<option data-kt-flag="flags/norway.svg" value="no">Norsk - Norwegian</option>
+										<option data-kt-flag="flags/poland.svg" value="pl">Polski - Polish</option>
+										<option data-kt-flag="flags/portugal.svg" value="pt">Português - Portuguese</option>
+										<option data-kt-flag="flags/romania.svg" value="ro">Română - Romanian</option>
+										<option data-kt-flag="flags/slovakia.svg" value="sk">Slovenčina - Slovak</option>
+										<option data-kt-flag="flags/finland.svg" value="fi">Suomi - Finnish</option>
+										<option data-kt-flag="flags/el-salvador.svg" value="sv">Svenska - Swedish</option>
+										<option data-kt-flag="flags/virgin-islands.svg" value="vi">Tiếng Việt - Vietnamese</option>
+										<option data-kt-flag="flags/turkey.svg" value="tr">Türkçe - Turkish</option>
+										<option data-kt-flag="flags/greece.svg" value="el">Ελληνικά - Greek</option>
+										<option data-kt-flag="flags/bulgaria.svg" value="bg">Български език - Bulgarian</option>
+										<option data-kt-flag="flags/russia.svg" value="ru">Русский - Russian</option>
+										<option data-kt-flag="flags/suriname.svg" value="sr">Српски - Serbian</option>
+										<option data-kt-flag="flags/ukraine.svg" value="uk">Українська мова - Ukrainian</option>
+										<option data-kt-flag="flags/israel.svg" value="he">עִבְרִית - Hebrew</option>
+										<option data-kt-flag="flags/pakistan.svg" value="ur">اردو - Urdu (beta)</option>
+										<option data-kt-flag="flags/argentina.svg" value="ar">العربية - Arabic</option>
+										<option data-kt-flag="flags/argentina.svg" value="fa">فارسی - Persian</option>
+										<option data-kt-flag="flags/mauritania.svg" value="mr">मराठी - Marathi</option>
+										<option data-kt-flag="flags/india.svg" value="hi">हिन्दी - Hindi</option>
+										<option data-kt-flag="flags/bangladesh.svg" value="bn">বাংলা - Bangla</option>
+										<option data-kt-flag="flags/guam.svg" value="gu">ગુજરાતી - Gujarati</option>
+										<option data-kt-flag="flags/india.svg" value="ta">தமிழ் - Tamil</option>
+										<option data-kt-flag="flags/saint-kitts-and-nevis.svg" value="kn">ಕನ್ನಡ - Kannada</option>
+										<option data-kt-flag="flags/thailand.svg" value="th">ภาษาไทย - Thai</option>
+										<option data-kt-flag="flags/south-korea.svg" value="ko">한국어 - Korean</option>
+										<option data-kt-flag="flags/japan.svg" value="ja">日本語 - Japanese</option>
+										<option data-kt-flag="flags/china.svg" value="zh-cn">简体中文 - Simplified Chinese</option>
+										<option data-kt-flag="flags/taiwan.svg" value="zh-tw">繁體中文 - Traditional Chinese</option>
