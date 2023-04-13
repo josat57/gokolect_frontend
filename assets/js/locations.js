@@ -97,7 +97,7 @@
                 });
             });
         } else {
-            console.log(Cities);
+            console.log("Cities");
             $.getJSON("assets/js/json/cities.json", (data) =>{
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
