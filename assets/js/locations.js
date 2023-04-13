@@ -44,7 +44,7 @@
 						// option.text(value.name);
                         // option.attr(value.code);
                         // $("#country").prepend(option).trigger("change");
-                        $("#country option:selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
+                        $("#country :selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
                     }
                 });
             });
@@ -75,7 +75,7 @@
                             // option.text(value.name);
                             // option.attr(value.code);
                             // $("#state").prepend(option);
-                            $("#state option:selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
+                            $("#state :selected").prepend('<option value="'+ value.code+'">'+ value.name +'</option>');
                             console.log(val, $("#state"));
                         }
                     });
@@ -108,7 +108,7 @@
                             // option.attr(value.code);
                             // $("#city").prepend(option).trigger('change');
                             console.log(val, country_code);
-                            $("#city option:selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
+                            $("#city option:selected").prepend('<option value="'+value.code+'">'+value.name+'</option>');
                         }
                     });
                 });
@@ -148,7 +148,7 @@
                                             var option = $("<option selected='selected' />");
                                             option.text(value.name);
                                             option.attr(value.code);
-                                            $("#lga option:selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
+                                            $("#lga option:selected").prepend('<option value="'+ value.code +'">'+ value.name +'</option>');
                                         }
                                     });
                                 }
