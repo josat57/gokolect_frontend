@@ -3038,12 +3038,16 @@
 								// console.log($('#' + fields).val(values));
 								console.log(fields, values);
 								if ($('#' + fields).prop("tagName") == "SELECT") {
+									if (fields === "country") {
+										getCountries(values);
+									} else if (fields === "state") {
+										getStates(values);										
+									} else if (fields === "city") {
+										getCities(values);            
+									}
 									var option = $("<option selected='selected' />")
 									option.text(values);
-									$('#' + fields).prepend(option);   
-									getCountries(values);
-									getStates(values);
-									getCities(values);            
+									$('#' + fields).prepend(option);  
 								} else if (fields == "profile_photo") {
 									var img = new Image();
 									img.src = "data:image/jpg;base64,"+values;
