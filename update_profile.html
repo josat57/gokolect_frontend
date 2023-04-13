@@ -3034,9 +3034,7 @@
 						$.unblockUI();			
 						if (json.statuscode === 0) {
 							console.log(json);
-							$.each(json.data, function(fields, values) {								
-								// console.log($('#' + fields).val(values));
-								console.log(fields, values);
+							$.each(json.data, function(fields, values) {
 								if ($('#' + fields).prop("tagName") == "SELECT") {
 									if (fields === "country") {
 										getCountries(values);
@@ -3058,7 +3056,6 @@
 								} else {
 									$('#' + fields).val(values);
 									$('#' + fields + "_label").text(values);
-									console.log(fields + " " + values);
 								}
 							});
 						} else {              
