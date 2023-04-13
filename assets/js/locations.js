@@ -70,12 +70,12 @@
             $.getJSON("assets/js/json/states.json", (data) =>{
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
-                        console.log(val.code, country_code);
                         if (val.code === country_code) {
                             var option = $("<option selected='selected' />")
                             option.text(value.name);
                             option.attr(value.code);
                             $("#state").prepend(option);
+                            console.log(val.code, country_code, option);
                         }
                     });
                 });
@@ -101,12 +101,12 @@
             $.getJSON("assets/js/json/cities.json", (data) =>{
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
-                        console.log(val.code, country_code);
                         if (val.code === country_code) {
                             var option = $("<option selected='selected' />");
                             option.text(value.name);
                             option.attr(value.code);
                             $("#city").prepend(option).trigger('change');
+                            console.log(val.code, country_code, option);
                         }
                     });
                 });
