@@ -75,8 +75,8 @@
                             // option.text(value.name);
                             // option.attr(value.code);
                             // $("#state").prepend(option);
-                            // console.log(val.code, country_code, option);
-                            $("#state").prepend('<option selected = "selected" value="' + value.code + '">' + value.name + '</option>').trigger('change');
+                            console.log(val, country_code);
+                            $("#state").prepend(`<option selected = "selected" value="${value.code}">'${value.name}</option>`).trigger('change');
                         }
                     });
                 });
@@ -107,8 +107,8 @@
                             // option.text(value.name);
                             // option.attr(value.code);
                             // $("#city").prepend(option).trigger('change');
-                            // console.log(val.code, country_code, option);
-                            $("#city").prepend('<option selected = "selected" value="' + value.code + '">' + value.name + '</option>').trigger('change');
+                            console.log(val, country_code);
+                            $("#city").prepend(`<option selected = "selected" value="${value.code}">'${value.name}</option>`).trigger('change');
                         }
                     });
                 });
