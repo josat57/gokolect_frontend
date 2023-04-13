@@ -39,12 +39,12 @@
             $.getJSON("assets/js/json/countries.json", (data) =>{
                 $.each(data, function (idx, value) {
                     if (country_code === value.code) {
-                        // var option = $("<option selected='selected' />")
+                        var option = $("<option selected='selected' />")
                         // $("#country").text("");
-						// option.text(value.name);
-                        // option.attr(value.code);
-                        // $("#country").prepend(option).trigger("change");
-                        $("#country :selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
+						option.text(value.name);
+                        option.attr(value.code);
+                        $("#country").prepend(option).trigger("change");
+                        // $("#country :selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
                     }
                 });
             });
@@ -71,11 +71,11 @@
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
                         if (val.code === country_code) {
-                            // var option = $("<option selected='selected' />")
-                            // option.text(value.name);
-                            // option.attr(value.code);
-                            // $("#state").prepend(option);
-                            $("#state :selected").prepend('<option value="'+ value.code+'">'+ value.name +'</option>');
+                            var option = $("<option selected='selected' />")
+                            option.text(val.name);
+                            option.attr(val.code);
+                            $("#state").prepend(option);
+                            // $("#state :selected").prepend('<option value="'+ value.code+'">'+ value.name +'</option>');
                             console.log(val, $("#state"));
                         }
                     });
@@ -103,12 +103,11 @@
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
                         if (val.code === country_code) {
-                            // var option = $("<option selected='selected' />");
-                            // option.text(value.name);
-                            // option.attr(value.code);
-                            // $("#city").prepend(option).trigger('change');
-                            console.log(val, country_code);
-                            $("#city option:selected").prepend('<option value="'+value.code+'">'+value.name+'</option>');
+                            var option = $("<option selected='selected' />");
+                            option.text(val.name);
+                            option.attr(val.code);
+                            $("#city").prepend(option).trigger('change');
+                            // $("#city option:selected").prepend('<option value="'+val.code+'">'+val.name+'</option>');
                         }
                     });
                 });
@@ -148,7 +147,7 @@
                                             var option = $("<option selected='selected' />");
                                             option.text(value.name);
                                             option.attr(value.code);
-                                            $("#lga option:selected").prepend('<option value="'+ value.code +'">'+ value.name +'</option>');
+                                            $("#lga option:selected").prepend('<option value="'+ val.code +'">'+ val.name +'</option>');
                                         }
                                     });
                                 }
