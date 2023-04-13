@@ -43,7 +43,7 @@
                         // $("#country").text("");
 						option.text(value.name);
                         option.attr(value.code);
-                        $("#country").prepend(option);
+                        $("#country").prepend(option).trigger("change");;
                         // $("#country :selected").prepend('<option value="' + value.code + '">' + value.name + '</option>').trigger('change');
                     }
                 });
@@ -70,6 +70,7 @@
             $.getJSON("assets/js/json/states.json", (data) =>{
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
+                        console.log(val.code, country_code);
                         if (val.code === country_code) {
                             var option = $("<option selected='selected' />")
                             option.text(value.name);
@@ -96,11 +97,11 @@
                     }
                 });
             });
-        } else {
-            console.log("Cities");
+        } else {            
             $.getJSON("assets/js/json/cities.json", (data) =>{
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
+                        console.log(val.code, country_code);
                         if (val.code === country_code) {
                             var option = $("<option selected='selected' />");
                             option.text(value.name);
