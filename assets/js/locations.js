@@ -75,8 +75,8 @@
                             // option.text(value.name);
                             // option.attr(value.code);
                             // $("#state").prepend(option);
-                            console.log(val, country_code);
-                            $("#state").prepend(`<option selected = "selected" value="${value.code}">${value.name}</option>`).trigger('change');
+                            $("#state option:selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
+                            console.log(val, $("#state"));
                         }
                     });
                 });
@@ -108,7 +108,7 @@
                             // option.attr(value.code);
                             // $("#city").prepend(option).trigger('change');
                             console.log(val, country_code);
-                            $("#city").prepend(`<option selected = "selected" value="${value.code}">${value.name}</option>`).trigger('change');
+                            $("#city option:selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
                         }
                     });
                 });
@@ -148,7 +148,7 @@
                                             var option = $("<option selected='selected' />");
                                             option.text(value.name);
                                             option.attr(value.code);
-                                            $("#lga").prepend(`<option selected="selected" value="${value.code}">${value.name}</option>`).trigger('change');
+                                            $("#lga option:selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
                                         }
                                     });
                                 }
