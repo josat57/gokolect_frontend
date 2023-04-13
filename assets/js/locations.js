@@ -32,7 +32,7 @@
                 $("#country").html("");
                 $("#country").append('<option value="">Select Country/Region</option>');
                 $.each(data, function (idx, value) {
-                    $("#country").append('<option value="' + value.code + '">' + value.name + '</option>');
+                    $("#country").append(`<option value="${value.code}">'${value.name}</option>`);
                 });
             });
         } else {
@@ -44,7 +44,7 @@
 						// option.text(value.name);
                         // option.attr(value.code);
                         // $("#country").prepend(option).trigger("change");
-                        $("#country").prepend(`<option selected = "selected" value="${value.code}">${value.name}</option>`).trigger('change');
+                        $("#country option:selected").prepend(`<option value="${value.code}">${value.name}</option>`).trigger('change');
                     }
                 });
             });
