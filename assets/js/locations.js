@@ -71,7 +71,7 @@
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
                         if (val.code === country_code) {
-                            $("#state :selected").attr.val("").text("");
+                            $("#state option:selected").attr.val("").text("");
                             var option = $("<option selected='selected' />")
                             option.text(value.name);
                             option.attr(value.code);
@@ -103,7 +103,7 @@
                 $.each(data, function (idx, value) {
                     $.each(Object.values(value), function (key, val) {
                         if (val.code === country_code) {
-                            $("#state :selected").attr.val("").text("");
+                            $("#state option:selected").attr.val("").text("");
                             var option = $("<option selected='selected' />");
                             option.text(value.name);
                             option.attr(value.code);
@@ -144,7 +144,7 @@
                                 if (nx === state_code) {
                                     $.each(Object.values(lga_values), function (key, val) {
                                         if (val.code === lga_code) {
-                                            $("#state :selected").attr.val("").text("");
+                                            $("#state option:selected").attr.val("").text("");
                                             var option = $("<option selected='selected' />");
                                             option.text(value.name);
                                             option.attr(value.code);
